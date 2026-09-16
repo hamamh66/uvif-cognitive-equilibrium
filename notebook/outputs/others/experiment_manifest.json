@@ -1,5 +1,5 @@
 {
-  "project": "UVIF_CognitiveEquilibrium_Article2",
+  "project": "UVIF_CognitiveEquilibrium",
   "seed": 20260916,
   "n_calibration_envs": 90,
   "n_evaluation_envs": 90,

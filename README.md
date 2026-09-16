@@ -1,83 +1,123 @@
 # Variational Equilibrium as an Organizing Principle of Natural and Artificial Cognitive Systems
 
-LaTeX source and companion simulation for the single-author manuscript
+LaTeX source and companion simulation code for the manuscript:
 
-> **Variational Equilibrium as an Organizing Principle of Natural and Artificial
-> Cognitive Systems: From Objective Maximization to Balanced Persistence**
-> H. Hamam — Faculty of Engineering, Université de Moncton
+> **Variational Equilibrium as an Organizing Principle of Natural and Artificial Cognitive
+> Systems: From Objective Maximization to Balanced Persistence**
+> Habib Hamam, Faculty of Engineering, Université de Moncton, Moncton, NB, Canada.
 
-**Status:** manuscript in preparation for submission to *Cognitive Systems Research*
-(Elsevier). This repository is private while the manuscript is under review.
+*Status: under review.*
 
 ---
 
-## Contents
+## The paper in brief
 
-| Path | What it is |
+Cognitive systems, biological and artificial, are commonly modelled as optimizers: agents
+that maximize a scalar objective such as reward, utility, accuracy, or negative prediction
+error. The paper argues that maximization is the wrong idealization for a cognitive system
+that must stay functional over long horizons, and develops an alternative.
+
+The **Unified Variational Intelligence Framework (UVIF)** characterizes cognition as the
+continuous, constrained balancing of five competing forces:
+
+| Force | Role |
 |---|---|
-| `main.tex` | Manuscript root (`elsarticle`, `review` mode, `elsarticle-num`) |
-| `Sections/` | Body sections, one file per section |
-| `Sections/References.bib` | Bibliography — 58 entries |
-| `Figures/` | Conceptual figures |
-| `notebook/` | Companion simulation of the Section 6.6 predictions |
-| `notebook/outputs/` | Figures, tables and run log produced by that notebook |
+| Epistemic pull | acquisition of information that reduces uncertainty |
+| Protective shield | preservation of states whose loss is unrecoverable |
+| Computational drag | the resource cost of inference itself |
+| Efficiency imperative | action within the window in which it remains useful |
+| Sustainability field | feasibility of the operating policy over long horizons |
 
-## Building
+The organizing principle is **Variational Equilibrium**: an operating manifold along which
+no force can be further satisfied without violating the admissibility constraints imposed
+by the others. The paper positions this against the free-energy principle and active
+inference, resource-rational analysis, allostatic regulation, and integrated cognitive
+architectures, and states four predictions (H1–H4) by which the framework can be
+distinguished from them.
+
+## Repository contents
+
+| Path | Description |
+|---|---|
+| `main.tex` | Manuscript root |
+| `Sections/` | Body sections, one file each |
+| `Sections/References.bib` | Bibliography |
+| `Figures/` | Conceptual figures |
+| `notebook/UVIF_Cognitive_Equilibrium_H1_H4.ipynb` | Simulation of predictions H1–H4 |
+| `notebook/outputs/` | Figures, tables and run log produced by the notebook |
+
+## Building the manuscript
+
+Requires a TeX distribution with `elsarticle`. The class and bibliography style files are
+included.
 
 ```bash
 pdflatex main && bibtex main && pdflatex main && pdflatex main
 ```
 
-Compiles clean: 59 pages, no undefined citations or cross-references, no uncited
-bibliography entries.
+Produces a 59-page document in Elsevier review format, with no undefined citations or
+cross-references.
 
-## The companion notebook
+## Running the simulation
 
-`notebook/UVIF_Cognitive_Equilibrium_H1_H4.ipynb` implements the five forces as explicit
-functions and tests the four predictions H1–H4 stated in Section 6.6. It ships executed,
-with outputs and figures embedded.
+```bash
+pip install numpy pandas matplotlib jupyter
+jupyter notebook notebook/UVIF_Cognitive_Equilibrium_H1_H4.ipynb
+```
 
-Three rules govern it, and they are worth stating because they are the reason to trust
-the numbers:
+The notebook runs top to bottom in under a minute on a laptop, with no GPU and no external
+data. It is committed with its outputs already executed, so the results can be read without
+running anything. Outputs are written to `Outputs/UVIF_CognitiveEquilibrium_Article2/`
+relative to the working directory, or to Google Drive if run in Colab.
 
-1. **Nothing is tuned on what it is scored on.** Environments are split once into disjoint
-   calibration and evaluation sets; every comparator's free parameters are fitted on
-   calibration and every reported number comes from evaluation.
-2. **No hand-set weight vector decides a headline result.** State dependence lives inside
-   the force functions. Comparator weights are searched densely, and the search range is
-   widened until the fit stops improving, so the comparator is never understated.
-3. **Seed-fixed and deterministic.** Policy search is an exhaustive grid argmax.
+## What the simulation tests
 
-### Results
+The five forces are implemented as explicit functions of a policy and an environment state.
+Each of the paper's four predictions is then tested against a comparator drawn from the
+accounts the paper contrasts itself with.
 
-| Prediction | Verdict | Evidence |
-|---|---|---|
-| **H1** state-dependent force weighting | supported in-model | best fixed-weight agent's held-out error is 1.52× the mean-policy baseline — worse than predicting the mean; UVIF plays 33 distinct policies across 90 held-out environments, the comparator 1 |
-| **H2** sustainability beyond the episode | supported in-model | sustained-regime policy is locally suboptimal by 0.374 per episode yet stays viable; the single-episode policy exhausts its resource immediately |
-| **H3** irreversibility ≠ large negative utility | supported only in the narrow form | best monotone penalty leaves ~10–15% unexplained, but its coefficient runs to whatever ceiling the search allows |
-| **H4** per-force failure signatures | supported in-model | four ablations give four distinguishable deployment curves |
+| Prediction | Result |
+|---|---|
+| **H1** — the balance between epistemic and pragmatic drives is a state variable, not a fixed model parameter | Supported. The best fixed-weight comparator, fitted on held-out environments, has 1.52× the error of predicting the mean policy. The framework produces 33 distinct policies across 90 environments; the comparator produces 1. |
+| **H2** — long-horizon viability is a force in its own right, not a long-horizon utility term | Supported. Under an identical payoff structure, the sustained-regime policy is locally suboptimal by 0.374 per episode yet remains viable indefinitely, while the single-episode policy exhausts its resource budget. |
+| **H3** — exposure to unrecoverable outcomes is an admissibility constraint, not a large negative utility | Supported in restricted form only. The best monotone utility penalty leaves 10–15% of held-out policy variation unexplained, but its fitted coefficient grows without bound as the search range widens. A sufficiently steep penalty therefore approximates the constraint in the limit, and only the finite-coefficient claim is defensible. |
+| **H4** — suppressing a single force produces a characteristic failure mode | Supported. Four single-force ablations yield four distinguishable deployment trajectories, two of which end in viability failure by different routes. |
 
-All conclusions survive ±40% perturbation of every model constant (Section 8 of the
-notebook).
+Every qualitative conclusion survives ±40% perturbation of each of the six model constants.
 
-### What the notebook does not establish
+### Methodology
 
-It is a simulation of the framework's own dynamics, not evidence about real cognitive
-systems. The functional forms were chosen by the author. A confirmed prediction here means
-the framework is internally coherent and the predicted signature is well defined and
-measurable — not that it is true of human or animal cognition. Section 10 of the manuscript
-states that the paper reports no experiments, and that statement stands.
+* Environments are split once into disjoint calibration and evaluation sets. Comparator
+  parameters are fitted on calibration; all reported figures come from evaluation.
+* Comparator search ranges are widened until the fit stops improving, so no result depends
+  on having understated the alternative.
+* Policy search is an exhaustive grid argmax under a fixed seed, so runs are deterministic.
 
-H3 failed on first implementation — protection was modelled as an additive penalty, which
-*is* a large negative utility, so the test was vacuous and returned a perfect fit. The
-failure and its diagnosis are retained in Section 5 of the notebook rather than removed,
-and they are why the manuscript now states H3 in its restricted finite-coefficient form.
+### Scope
 
-## Related work
+The notebook is a simulation of the framework's own dynamics using functional forms chosen
+by the author. It establishes that each prediction is well posed and that the framework
+produces the predicted signature where a natural comparator does not. It is **not** evidence
+about human or animal cognition, and does not test the framework empirically. The
+experimental designs that would do so are set out in the manuscript, which reports no
+experiments and presents UVIF as a research programme rather than a validated account.
 
-A companion empirical study, *Thresholds as Institutional Commitments: Limits of
-Confidence-Based Human Review*, is under review at *Social Sciences & Humanities Open*.
-The two papers are independent: neither depends on the other for its claims.
+## Citation
+
+```bibtex
+@unpublished{hamam2026variational,
+  author = {Hamam, Habib},
+  title  = {Variational Equilibrium as an Organizing Principle of Natural and
+            Artificial Cognitive Systems: From Objective Maximization to
+            Balanced Persistence},
+  year   = {2026},
+  note   = {Manuscript under review}
+}
+```
+
+## Contact
+
+Habib Hamam — Habib.Hamam@umoncton.ca
 
 ## License
 

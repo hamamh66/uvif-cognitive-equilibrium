@@ -1,6 +1,6 @@
-UVIF Cognitive Equilibrium - Article 2 simulation
+UVIF Cognitive Equilibrium - simulation of predictions H1-H4
 [INFO] numpy 2.4.4 | seed 20260916
-[INFO] outputs -> Outputs/UVIF_CognitiveEquilibrium_Article2
+[INFO] outputs -> Outputs/UVIF_CognitiveEquilibrium
 [SPLIT] calibration environments: 90 | evaluation environments: 90
 [SPLIT] disjointness verified
 
@@ -64,4 +64,4 @@ H3 irreversibility not a large negative utility supported only in the narrow for
                 H4 per-force failure signatures                supported in-model four ablations give four distinguishable curves; drag and sustainability ablations end in viability failure, protection degrades, epistemic ablation is stable but persistently below intact
 
 [FILES] ["figure_H1_state_dependent_weighting.png", "figure_H2_horizon_contrast.png", "figure_H4_failure_signatures.png", "table_H3_monotone_penalty_fits.csv", "table_H4_failure_signatures.csv", "table_sensitivity_analysis.csv", "table_summary_H1_H4.csv"]
-[DONE] outputs written to Outputs/UVIF_CognitiveEquilibrium_Article2
+[DONE] outputs written to Outputs/UVIF_CognitiveEquilibrium
