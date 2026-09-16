@@ -272,7 +272,32 @@ by which \uvif{} could be separated from the accounts discussed above.
 These predictions are qualitative, and the framework does not yet specify the
 functional forms that would make them quantitative. Establishing those forms is
 the principal item on the research agenda set out in
-Section~\ref{sec:future}. A companion study takes up a narrower empirical
+Section~\ref{sec:future}.
+
+A reference implementation of the five forces, together with a simulation of the
+four predictions stated above, is openly available in the repository
+accompanying this article \citep{Hamam2026GitHub}. Each force is instantiated as
+an explicit function of a policy and an environment state, and each prediction is
+evaluated against a comparator drawn from the accounts discussed in this
+section---a fixed-weight scalarization for (H1), a per-episode objective for
+(H2), a monotone utility penalty for (H3), and the intact force set for (H4).
+Comparator parameters are fitted on calibration environments disjoint from those
+on which results are reported, and comparator search ranges are widened until the
+fit ceases to improve, so that no reported difference rests on having given the
+alternative too little room. Within that model, (H1), (H2) and (H4) hold and are
+robust to perturbation of every model constant, while (H3) holds only in the
+restricted finite-coefficient form stated above: the fitted penalty coefficient
+grows without bound as the search range widens, which is the signature of a
+penalty approximating a constraint rather than reproducing it.
+
+These are results about a model whose functional forms are stipulated rather than
+measured. They establish that each prediction is well posed, that the signature
+it names is measurable, and that the framework generates that signature where a
+natural comparator does not. They are not evidence about the behaviour of
+biological or artificial cognitive systems, and they do not stand in for the
+empirical tests described in Section~\ref{sec:limitations}.
+
+A companion study takes up a narrower empirical
 question within this programme---what happens when the decision threshold of a
 deployed classification system is set without regard to the review capacity that
 must absorb its borderline cases---and reports an analysis of confidence-based
