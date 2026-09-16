@@ -1,0 +1,67 @@
+UVIF Cognitive Equilibrium - Article 2 simulation
+[INFO] numpy 2.4.4 | seed 20260916
+[INFO] outputs -> Outputs/UVIF_CognitiveEquilibrium_Article2
+[SPLIT] calibration environments: 90 | evaluation environments: 90
+[SPLIT] disjointness verified
+
+[H1] best fixed weight vector w* = [0.   1.   1.   0.5  0.75]
+[H1] that agent plays a single policy everywhere: (e,a) = (0.18, 0.38)
+[H1] calibration MSE = 0.2784 | held-out evaluation MSE = 0.2627
+[H1] mean-policy baseline error = 0.1731
+[H1] ratio of fixed-weight error to that baseline = 1.52x
+[H1] a ratio above 1.0 means the best fixed-weight agent fits the held-out UVIF
+[H1] policies WORSE than simply predicting the mean UVIF policy everywhere.
+[H1] distinct UVIF policies across 90 evaluation environments: 33
+
+[H3] best monotone penalty as the search range widens:
+search range     b*   g*  calib MSE  eval MSE  unexplained %  exact match %
+      narrow   8.31 3.24     0.0005    0.0237           14.8           87.8
+     widened  50.92 3.95     0.0001    0.0237           14.8           85.6
+   very wide 400.00 5.20     0.0001    0.0168           10.5           86.7
+
+[H2] single-episode policy   (e,a) = (0.52, 1.00)
+[H2] sustained-regime policy (e,a) = (0.38, 0.16)
+[H2] per-episode value of the sustained policy is lower: 0.611 vs 0.985  (locally suboptimal by 0.374)
+[H2] resource after 150 steps: single-episode policy 0.000 (0 = viability failure at step 1) | sustained policy 1.000
+
+[H4] deployment value under single-force ablation (intact scoring):
+         ablation    t=0   t=10   t=50  t=149   mean
+           intact +0.608 +0.609 +0.609 +0.626 +0.615
+no epistemic pull +0.345 +0.486 +0.499 +0.521 +0.504
+    no protection +0.606 +0.585 +0.471 +0.471 +0.491
+          no drag +0.518 +0.474 -0.057 -1.632 -0.784
+no sustainability +0.456 -0.902 -0.902 -0.902 -0.887
+
+[SENSITIVITY] qualitative conclusions under +/-40% perturbation of each constant:
+constant setting  value  H1 state-dependent  H2 horizon effect  H4 sustainability ablation hurts
+   KAPPA    -40%   1.80                True               True                              True
+   KAPPA    base   3.00                True               True                              True
+   KAPPA    +40%   4.20                True               True                              True
+     LAM    -40%   0.21                True               True                              True
+     LAM    base   0.35                True               True                              True
+     LAM    +40%   0.49                True               True                              True
+      CD    -40%   0.33                True               True                              True
+      CD    base   0.55                True               True                              True
+      CD    +40%   0.77                True               True                              True
+     RHO    -40%   0.54                True               True                              True
+     RHO    base   0.90                True               True                              True
+     RHO    +40%   1.26                True               True                              True
+      CS    -40%   0.33                True               True                              True
+      CS    base   0.55                True               True                              True
+      CS    +40%   0.77                True               True                              True
+   REGEN    -40%   0.18                True               True                              True
+   REGEN    base   0.30                True               True                              True
+   REGEN    +40%   0.42                True               True                              True
+
+[SENSITIVITY] conclusions holding in all 18 perturbed settings: H1 state-dependent, H2 horizon effect, H4 sustainability ablation hurts
+[SENSITIVITY] conclusions that FAIL somewhere: none
+
+[SUMMARY]
+                                     prediction                           verdict                                                                                                                                                                                     evidence
+             H1 state-dependent force weighting                supported in-model                           best fixed-weight agent's held-out error is 1.52x the mean-policy baseline, i.e. worse than predicting the mean; UVIF plays 33 distinct policies, the comparator 1
+           H2 sustainability beyond the episode                supported in-model                                                       sustained-regime policy is locally suboptimal by 0.374 per episode yet remains viable, while the single-episode policy fails at step 1
+H3 irreversibility not a large negative utility supported only in the narrow form       best monotone penalty leaves 10.5% unexplained with b* running to the search ceiling; approximates the constraint as b -> infinity, so only the finite-coefficient claim is defensible
+                H4 per-force failure signatures                supported in-model four ablations give four distinguishable curves; drag and sustainability ablations end in viability failure, protection degrades, epistemic ablation is stable but persistently below intact
+
+[FILES] ["figure_H1_state_dependent_weighting.png", "figure_H2_horizon_contrast.png", "figure_H4_failure_signatures.png", "table_H3_monotone_penalty_fits.csv", "table_H4_failure_signatures.csv", "table_sensitivity_analysis.csv", "table_summary_H1_H4.csv"]
+[DONE] outputs written to Outputs/UVIF_CognitiveEquilibrium_Article2

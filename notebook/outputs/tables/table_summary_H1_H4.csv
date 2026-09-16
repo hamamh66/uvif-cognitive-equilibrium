@@ -1,0 +1,5 @@
+prediction,verdict,evidence
+H1 state-dependent force weighting,supported in-model,"best fixed-weight agent's held-out error is 1.52x the mean-policy baseline, i.e. worse than predicting the mean; UVIF plays 33 distinct policies, the comparator 1"
+H2 sustainability beyond the episode,supported in-model,"sustained-regime policy is locally suboptimal by 0.374 per episode yet remains viable, while the single-episode policy fails at step 1"
+H3 irreversibility not a large negative utility,supported only in the narrow form,"best monotone penalty leaves 10.5% unexplained with b* running to the search ceiling; approximates the constraint as b -> infinity, so only the finite-coefficient claim is defensible"
+H4 per-force failure signatures,supported in-model,"four ablations give four distinguishable curves; drag and sustainability ablations end in viability failure, protection degrades, epistemic ablation is stable but persistently below intact"

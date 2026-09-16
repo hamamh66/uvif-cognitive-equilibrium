@@ -1,0 +1,282 @@
+% ============================================================
+%  Section 6 – Variational Equilibrium in Cognitive Systems
+% ============================================================
+\section{Variational Equilibrium in Natural and Artificial Cognitive Systems}
+\label{sec:cognitive_systems}
+
+The preceding sections developed \uvif{} as a general account of persistent
+organization. This section narrows the focus to the case that motivates the
+framework most directly and constrains it most sharply: cognition. Cognitive
+systems are the setting in which the five forces are simultaneously observable,
+in which competing formal accounts already exist, and in which the framework's
+claims can therefore be made to do discriminating work rather than merely
+descriptive work.
+
+The argument proceeds in four steps. We first state what it means, concretely,
+for a cognitive system to occupy a Variational Equilibrium. We then show that
+three established research programmes in cognitive science---predictive
+processing and active inference, resource-rational analysis, and allostatic
+regulation---each capture a projection of that equilibrium onto a subset of the
+forces, and that their well-known points of friction with one another arise
+precisely where the omitted forces matter. We then turn to cognitive
+architectures, asking what the framework implies for the design of integrated
+cognitive systems. We close by stating the predictions that distinguish \uvif{}
+from these neighbours, since a framework that reorganizes existing results
+without generating new ones has not earned its place.
+
+\subsection{Cognition as a Balance of Forces}
+\label{subsec:cognition_forces}
+
+Consider a cognitive system embedded in an environment it cannot fully observe,
+equipped with finite metabolic and computational resources, and required to act
+before its uncertainty has been resolved. Five pressures act on such a system at
+every moment.
+
+The \emph{epistemic pull} (\(\Epull\)) drives the acquisition of information
+that would reduce uncertainty about the environment and about the consequences
+of the system's own actions. In cognitive terms this is curiosity, exploratory
+sampling, attention allocation, and deliberate hypothesis testing.
+
+The \emph{protective shield} (\(\Prot\)) preserves internal states whose
+disruption would be catastrophic or irreversible. In biological cognition this
+includes the physiological variables that must remain within narrow bounds; in
+cognitive terms it includes the stability of core representations, identity, and
+commitments that are not renegotiated in response to every incoming observation.
+
+The \emph{computational drag} (\(\Drag\)) is the cost of inference itself. Every
+cognitive operation consumes time, energy, and working memory. This is not a
+nuisance term: for a brain operating under a severe metabolic budget, the cost of
+computing an answer is commensurate with the value of having it.
+
+The \emph{efficiency imperative} (\(\Eff\)) demands that action occur within the
+window in which it remains useful. A decision that is correct but late is, in
+many ecologically realistic settings, indistinguishable in consequence from a
+decision that is wrong.
+
+The \emph{sustainability field} (\(\Sus\)) requires that the system's operating
+policy remain feasible over horizons far longer than any single decision. A
+cognitive strategy that is locally optimal but exhausts the resources on which
+future cognition depends is not intelligent in the sense the framework intends.
+
+\begin{definition}[Cognitive Variational Equilibrium]
+\label{def:cog_veq}
+A cognitive system occupies a Variational Equilibrium when its operating policy
+lies on the manifold along which no single force can be further satisfied without
+displacing the system beyond the admissibility constraints \(\Adm\) imposed by
+the remaining forces. Cognition, on this account, is the continuous process of
+navigating toward and along that manifold under perturbation.
+\end{definition}
+
+Two features of Definition~\ref{def:cog_veq} deserve emphasis, because they are
+what separates the framework from a restatement of multi-objective optimization.
+First, the equilibrium is a manifold rather than a point: there is in general a
+continuum of admissible operating policies, and which one a system occupies is
+underdetermined by the forces alone. This is a feature, not an indeterminacy to
+be eliminated---it is what allows a cognitive system to shift its operating point
+in response to context without a change of objective. Second, the forces are not
+combined into a scalar by a fixed weighting. The relative influence of each force
+is itself state-dependent: metabolic depletion raises the effective weight of
+\(\Drag\), threat raises that of \(\Prot\), and a benign environment with slack
+resources raises that of \(\Epull\). A system whose force weights were fixed in
+advance would not be at Variational Equilibrium; it would be optimizing a
+particular scalarization of it.
+
+\subsection{Relation to Predictive Processing and Active Inference}
+\label{subsec:pp_ai}
+
+Predictive processing holds that the brain is fundamentally a hierarchical
+prediction machine, continuously matching sensory input against top-down
+expectation and propagating the residual error
+\citep{clark2013whatever}. Active inference extends this into a theory of action:
+an agent acts so as to bring about the observations its generative model
+predicts, so that perception and action become two routes to the same end
+\citep{friston2010fep,parr2022active,buckley2017fep,bruineberg2016anticipating}. The programme is the
+closest existing kin of \uvif{}, and the resemblance is not superficial---both
+are variational, both treat uncertainty reduction as constitutive rather than
+instrumental, and both deny any clean separation between inference and action.
+
+The difference lies in what is held fixed. Active inference derives behaviour
+from the minimization of a single functional, expected free energy, within which
+epistemic value (information gain) and pragmatic value (goal attainment) appear
+as additive components. That unification is the framework's principal elegance,
+and it is also, we argue, where it purchases parsimony at the cost of resolution.
+Because the two contributions enter as terms in one quantity, the trade-off
+between them is fixed by the form of the generative model and the precision
+assigned to its priors. Whether an agent explores or exploits is thus a
+consequence of how the model was specified, and an observed shift in that balance
+must be explained by positing a corresponding shift in precision.
+
+\uvif{} makes the opposite modelling choice. \(\Epull\) and \(\Eff\) are
+separate forces whose relative influence is a state variable of the system rather
+than a parameter of its model. The balance between them is an outcome of the
+dynamics, not an input to them. This is a more permissive framework and
+correspondingly a weaker one: it predicts less about any particular agent than
+active inference does, and in exchange it does not require that every observed
+change in exploratory behaviour be absorbed into the precision term. We take
+this to be an honest trade rather than a strict improvement, and we return to
+what would discriminate the two in Section~\ref{subsec:cog_predictions}.
+
+The second and more consequential difference concerns cost. In the free-energy
+formulation, the computational expense of inference is not itself represented in
+the quantity being minimized; the agent minimizes free energy without the price
+of that minimization appearing in the objective. For a theory of an organ that
+consumes a fifth of the body's energy budget at rest, this omission is not
+innocuous. \uvif{} promotes \(\Drag\) and \(\Sus\) to first-class forces
+precisely so that the cost of thinking, and the long-run feasibility of
+continuing to think, constrain the system's operating point directly. This is
+the point at which the framework makes contact with resource-rational analysis.
+
+\subsection{Relation to Resource-Rational Analysis}
+\label{subsec:resource_rational}
+
+Resource-rational analysis holds that human cognition is well described as the
+optimal use of limited computational resources: the mind selects the cognitive
+strategy that maximizes expected utility net of the cost of executing it
+\citep{lieder2019resourcerational}. The programme has been notably successful in
+turning apparent irrationality into evidence of rational adaptation---anchoring
+effects, limited planning depth, and heuristic choice have each been recovered
+as the resource-optimal policy for an agent with the constraints humans actually
+have \citep{griffiths2015rational,callaway2022rational}.
+
+Resource-rational analysis is, in the terms of this paper, an account of the
+balance between \(\Eff\) and \(\Drag\), conducted with unusual rigour. Its
+relation to \uvif{} is therefore complementary rather than competitive: it
+supplies the formal machinery for two of the five forces, and the framework
+supplies the context in which those two sit alongside three others.
+
+What the framework adds is the observation that resource-rationality is defined
+relative to a utility function whose specification is exogenous to the analysis,
+and over a horizon that is typically the duration of the task. Both restrictions
+matter. A strategy that is resource-optimal for the task at hand may be
+unsustainable if adopted as a standing policy---the relevant failure is not
+irrationality within the episode but the depletion of a resource the analysis
+did not track. \(\Sus\) is the force that represents this, and it has no natural
+home in a per-task resource-rational analysis. Similarly, \(\Prot\) captures the
+asymmetry between recoverable and unrecoverable errors, which a utility function
+can encode only by assigning a large negative value to the latter---a
+representation that is formally adequate but obscures the qualitative difference
+between an error that costs utility and one that ends the system's capacity to
+accrue it.
+
+\subsection{Relation to Homeostatic and Allostatic Regulation}
+\label{subsec:allostasis}
+
+The physiological literature supplies the framework's most direct empirical
+anchor. Homeostasis describes the maintenance of critical internal variables
+within viable bounds \citep{billman2020homeostasis}; adaptive homeostasis adds
+that the bounds themselves shift in response to signals \citep{davies2016adaptive};
+and homeodynamics recognizes that living systems exhibit organized transitions
+between stable regimes rather than residence at a single set point
+\citep{lloyd2001homeodynamics,petitjean2025homeodynamics,farnsworth2025setpoint}.
+
+Allostasis carries this into cognition proper. On the allostatic account, the
+brain does not merely correct deviations after they occur; it predicts the
+demands the body is about to face and mobilizes resources in advance, accepting
+the computational cost of prediction in exchange for a reduction in costly
+regulatory error \citep{schulkin2019allostasis}. Neuroimaging evidence supports a
+large-scale intrinsic brain system serving allostasis and interoception, linking
+predictive regulation of the body to the same cortical machinery implicated in
+predictive processing of the world \citep{kleckner2017evidence}.
+
+This is, we suggest, Variational Equilibrium observed in a single system with all
+five forces visible at once. Prediction of upcoming demand is \(\Epull\);
+defence of viable physiological bounds is \(\Prot\); the acknowledged cost of
+predictive computation is \(\Drag\); mobilization ahead of demand is \(\Eff\);
+and the requirement that the regulatory strategy remain affordable across the
+organism's lifespan is \(\Sus\). The allostatic literature has, in effect,
+already described the framework's central object in one domain. What \uvif{}
+proposes is that the same organizational form recurs at other scales, and the
+force of that proposal rests on whether the recurrence is substantive or merely
+analogical---a question we address directly in
+Section~\ref{sec:limitations}.
+
+\subsection{Implications for Cognitive Architectures}
+\label{subsec:architectures}
+
+Integrated cognitive architectures---ACT-R, Soar, Sigma, and the several dozen
+others that remain in active development---represent the field's most sustained
+attempt to specify a complete cognitive system rather than an isolated mechanism
+\citep{kotseruba201840}. The standard model of the mind articulates the
+consensus these architectures have converged upon regarding structure,
+processing, memory, and learning \citep{laird2017standard}.
+
+That consensus is, however, largely a consensus about \emph{mechanism}: what
+modules exist, what representations they exchange, how control passes among
+them. It says comparatively little about what governs the allocation of a
+system's finite capacity among competing demands at run time, which is
+ordinarily handled by architecture-specific conflict resolution or utility
+mechanisms. \uvif{} is not a competing architecture and does not propose one.
+It is a specification of the regulatory layer such an architecture requires:
+a statement of which pressures must be represented and balanced, leaving open
+the mechanisms by which any particular architecture implements them.
+
+Three design consequences follow. First, an architecture that represents the
+cost of its own inference---not merely as a scheduling constraint but as a
+quantity entering its control decisions---will exhibit the graceful degradation
+under load that fixed-policy architectures lack. Second, an architecture with an
+explicit \(\Prot\) force will distinguish recoverable from unrecoverable
+failure, and will decline actions of the latter kind under uncertainty rather
+than treating all errors as commensurable losses. Third, an architecture
+carrying an explicit \(\Sus\) force will admit policies that are locally
+suboptimal in order to remain feasible over its deployment lifetime---a property
+that no per-episode objective can express. These are design implications, not
+results; the framework as it stands motivates them but does not demonstrate
+them.
+
+\subsection{Discriminating Predictions}
+\label{subsec:cog_predictions}
+
+A framework that merely reorganizes existing findings has limited value. We
+therefore state, as hypotheses rather than established results, the predictions
+by which \uvif{} could be separated from the accounts discussed above.
+
+\begin{enumerate}[label=(H\arabic*),leftmargin=2.2em]
+  \item \textbf{State-dependent force weighting.} If the balance between
+    epistemic and pragmatic drives is a state variable rather than a model
+    parameter, then manipulating a subject's resource state---metabolic,
+    temporal, or computational---while holding the task's information structure
+    and reward structure fixed should shift exploratory behaviour. An expected
+    free energy account can accommodate such a shift only by positing a
+    concurrent change in precision, so the discriminating test is whether the
+    shift occurs without independent evidence of a precision change.
+
+  \item \textbf{Sustainability effects beyond the episode.} If \(\Sus\) is a
+    genuine force rather than a long-horizon utility term, then agents informed
+    that a task regime will be sustained indefinitely should adopt systematically
+    different---and locally suboptimal---strategies from agents facing an
+    otherwise identical single episode, even when the stated payoff structure is
+    held constant.
+
+  \item \textbf{Asymmetric treatment of irreversibility.} If \(\Prot\)
+    enters as an admissibility constraint---a ceiling on tolerated exposure
+    to unrecoverable outcomes---rather than as a term in the objective, then
+    choices involving such outcomes should not be reproducible by any
+    monotone rescaling of the utilities attached to recoverable ones with a
+    \emph{finite} coefficient. We state the prediction in this restricted
+    form deliberately. A sufficiently steep penalty approximates a hard
+    constraint arbitrarily well, and converges to it as the coefficient
+    diverges; the unrestricted claim---that no monotone rescaling can
+    reproduce constrained choice---is therefore false as a limit statement.
+    What is testable is the finite case: whether observed choices are fit by
+    a penalty whose estimated coefficient remains bounded as the range of
+    admitted values is widened, or whether that estimate diverges.
+
+  \item \textbf{Characteristic failure signatures.} Selectively suppressing a
+    single force should produce a distinguishable failure mode: suppressing
+    \(\Epull\) should yield confident action on a stale world model;
+    suppressing \(\Prot\) should yield fluent behaviour punctuated by
+    catastrophic error; suppressing \(\Sus\) should yield performance that is
+    strong initially and degrades monotonically with deployment duration.
+\end{enumerate}
+
+These predictions are qualitative, and the framework does not yet specify the
+functional forms that would make them quantitative. Establishing those forms is
+the principal item on the research agenda set out in
+Section~\ref{sec:future}. A companion study takes up a narrower empirical
+question within this programme---what happens when the decision threshold of a
+deployed classification system is set without regard to the review capacity that
+must absorb its borderline cases---and reports an analysis of confidence-based
+human review under fixed operating conditions \citep{hamam2026thresholds}. That
+study is empirical and institution-facing; the present paper is the conceptual
+framework from which its question is drawn. Neither depends on the other for its
+claims.

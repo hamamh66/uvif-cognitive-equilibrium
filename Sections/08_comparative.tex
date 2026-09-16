@@ -1,0 +1,278 @@
+% ============================================================
+%  Section 7 – Comparative Methodological Positioning
+% ============================================================
+\section{Comparative Methodological Positioning}
+\label{sec:comparative}
+
+\uvif{} does not emerge in a vacuum. The landscape of theoretical
+frameworks for intelligence is populated by powerful paradigms---each
+capturing real and important aspects of how intelligent systems
+function. Situating \uvif{} relative to these frameworks clarifies
+both its distinctiveness and its relationship to existing work.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\linewidth]{Figures/Fig7_Comparative_Positioning.png}
+\caption{Comparative positioning of \uvif{} relative to classical
+optimization, reinforcement learning (RL), free-energy-based
+approaches, and data-driven artificial intelligence. Existing paradigms
+capture important aspects of intelligent behavior, but each emphasizes
+different objectives, assumptions, and organizational principles.
+\uvif{} differs by interpreting intelligence as the maintenance of
+adaptive equilibrium under competing forces, bounded uncertainty,
+resource constraints, and long-term sustainability requirements.}
+\label{fig:comparative_positioning}
+\end{figure}
+
+Fig.~\ref{fig:comparative_positioning} summarizes the conceptual
+positioning of \uvif{} relative to several major paradigms in artificial
+intelligence and intelligent-system theory. The figure should not be
+interpreted as claiming that existing frameworks are incorrect or
+obsolete. On the contrary, optimization, reinforcement learning,
+free-energy approaches, and statistical learning each provide powerful
+tools that successfully address important classes of problems.
+
+The main distinction emphasized by \uvif{} concerns the underlying
+organizational principle of intelligence. Classical optimization seeks
+the best value of a single objective. Reinforcement learning focuses on
+maximizing cumulative expected reward through sequential interaction.
+Free-energy approaches attempt to reduce uncertainty and surprise
+through predictive internal models. Data-driven AI emphasizes pattern
+extraction and statistical generalization from large datasets.
+
+\uvif{} adopts a different perspective. Rather than centering
+intelligence on one dominant quantity, the framework interprets
+intelligent behavior as the maintenance of adaptive equilibrium under
+multiple competing pressures. These pressures include uncertainty,
+resource limitations, safety constraints, action requirements, risk,
+and long-term sustainability. Under this interpretation, intelligence
+is not identified with isolated maximization, but with the capacity to
+preserve viable operation across changing and uncertain environments.
+
+The lower statement in the figure is particularly important:
+\uvif{} is not proposed as a replacement for existing paradigms.
+Instead, it acts as a higher-level organizational framework capable of
+integrating and contextualizing them. Optimization, reinforcement
+learning, probabilistic inference, and statistical learning can all
+operate inside a \uvif{} architecture as local mechanisms serving
+broader equilibrium-maintenance objectives.
+
+\subsection{\uvif{} Versus Classical Optimization}
+
+Classical optimization---whether in the form of convex programming,
+gradient descent, or combinatorial search---is the methodological
+backbone of most applied AI systems. Its strengths are well-known:
+mathematical tractability, computational efficiency, and a clear
+convergence theory.
+
+Its limitations, as we have argued throughout, stem from the
+single-objective architecture. Classical optimization can handle
+multiple objectives through scalarization (weighted sums, Pareto
+frontiers, constraint satisfaction), but in each case the multi-objective
+problem is reduced to a single-objective one through a mechanism
+external to the optimization itself. The choice of weights or
+constraint bounds is a design decision, not an emergent property of
+the system's dynamics.
+
+\uvif{} differs in treating the multi-force balance as \emph{intrinsic}
+to the system's dynamics. The five forces are not alternative objectives
+to be traded off by the designer; they are the constitutive properties
+of intelligent behavior, and their balance---the Variational Equilibrium---
+emerges from the system's internal dynamics rather than being imposed
+from outside. This means that a \uvif{} system can adapt its effective
+trade-offs in response to environmental change without a redesign
+of the objective function.
+
+Classical optimization can be embedded within \uvif{} as a local
+mechanism: within a given force-balance configuration, local
+optimization may be used to select efficient actions. But \uvif{}
+provides the higher-level architecture that determines which optimization
+problem is being solved at any given time.
+
+\subsection{\uvif{} Versus Reinforcement Learning}
+
+Reinforcement learning (RL) is the dominant paradigm for sequential
+decision-making under uncertainty. Its core framework---an agent
+interacting with an environment to maximize cumulative reward---is
+elegant and widely applicable. The theoretical and practical failures
+that have been documented at scale---reward hacking, specification
+gaming, distributional shift, the alignment ceiling---all stem from
+the same source: the assumption that a single reward signal can
+capture all aspects of good behavior \citep{garcia2015saferl,yuan2019novel}.
+
+Safe RL has attempted to address these failures by adding constraint
+satisfaction to the reward maximization objective: the agent should
+maximize reward subject to safety constraints \citep{garcia2015saferl}.
+This is progress, but it remains within the single-primary-objective
+paradigm: safety is a constraint, not a force.
+
+\uvif{} differs in treating safety (selective protection), efficiency
+(action efficiency), and sustainability as forces of equal standing
+with the reward signal. Rather than asking how reward maximization
+can be constrained to be safe, \uvif{} asks what the force balance
+is that makes an agent simultaneously effective, safe, efficient, and
+sustainable. The resulting system has no primary objective; it has a
+\emph{primary configuration}---its Variational Equilibrium---which it
+maintains across changing conditions.
+
+RL algorithms can serve as efficient solvers for the action efficiency
+component of \uvif{}, but they require the full force architecture to
+operate within if they are to produce agents that are robustly
+functional over extended lifetimes.
+
+\subsection{\uvif{} Versus Free-Energy and Active Inference Frameworks}
+
+The free-energy principle (FEP) and its corollary, active inference,
+represent the closest intellectual kin of \uvif{} in the existing
+literature \citep{friston2010fep,parr2022active,buckley2017fep}.
+FEP proposes that biological agents minimize variational free energy---
+a bound on the surprise of their sensory observations---through a
+combination of perceptual inference (updating internal models to
+better predict observations) and active inference (taking actions that
+bring about less surprising observations). This framework provides a
+unified account of perception, action, and learning under a single
+functional principle.
+
+\uvif{} shares several deep commitments with FEP: the variational
+formulation, the emphasis on reducing uncertainty through active
+engagement with the environment (epistemic pull), and the recognition
+that inference and action are two aspects of a single adaptive process.
+It also shares the commitment to biological plausibility as a
+design criterion.
+
+Section~\ref{subsec:pp_ai} develops the comparison in the cognitive
+setting; here we summarize the three structural differences and,
+equally, the respects in which FEP is the stronger framework.
+
+The first difference is scope. FEP is primarily a theory of neural
+systems and sensory-motor behavior; its application to organizational,
+ecological, and artificial systems is an extension requiring
+significant theoretical elaboration. \uvif{} is designed from the
+outset to span these domains. This breadth is not self-evidently a
+virtue: a framework that applies everywhere risks constraining nothing,
+and the burden of showing that the cross-domain recurrence is
+structural rather than analogical falls on \uvif{}, not on FEP.
+
+The second concerns the treatment of epistemic and pragmatic value.
+FEP's central quantity conflates them in a single functional, so their
+trade-off is fixed by the generative model and its precision
+assignments. \uvif{} separates them: \(\Epull\) is one force,
+\(\Eff\) another, and their balance is a state-dependent outcome of
+the dynamics rather than a modelling input. The separation buys
+transparency and domain-specific calibration at the cost of predictive
+commitment---FEP says more about any given agent, and is correspondingly
+easier to falsify.
+
+The third concerns cost. \uvif{} includes computational drag and
+sustainability as primary forces; FEP does not represent the price of
+inference, or the long-run affordability of the inferential policy, in
+the quantity being minimized. For systems operating under hard resource
+budgets over extended horizons we regard this as a substantive omission,
+and it is the point at which \uvif{} makes contact with
+resource-rational analysis \citep{lieder2019resourcerational}.
+
+Set against these, FEP retains two clear advantages that \uvif{} does
+not currently match: a fully specified mathematical formulation from
+which behaviour can be derived, and an established body of empirical
+and neurophysiological support. \uvif{} offers, at this stage, an
+organizing architecture and a set of predictions; it does not offer a
+derivation.
+
+\subsection{\uvif{} Versus Purely Data-Driven Intelligence}
+
+The current ascendancy of large-scale data-driven AI (large language
+models, foundation models, self-supervised learning) represents a
+different kind of challenge to \uvif{}. These systems do not specify
+an explicit objective in the traditional sense; they learn rich
+representations from vast datasets and apply them to a wide range
+of downstream tasks. In a sense, they appear to escape the
+single-objective trap by learning objectives implicitly from data.
+
+The limitations of purely data-driven intelligence are equally well
+documented, however. These systems are opaque: their internal
+representations do not correspond to interpretable forces or objectives.
+They are brittle at distributional extremes: the representations
+learned from a training corpus may not generalize to novel situations
+outside that corpus. And they lack explicit sustainability mechanisms:
+they have no endogenous drive to conserve resources, protect critical
+knowledge, or maintain long-term viability.
+
+\uvif{} is not opposed to data-driven learning; it provides the
+architectural context within which data-driven representations can
+be used responsibly. The epistemic pull force determines \emph{which}
+data should be sought and \emph{how} learned representations should
+be updated. The selective protection force determines \emph{which}
+representations should be preserved against overwriting. And the
+sustainability force ensures that the data acquisition and processing
+pipeline remains viable over time. Data-driven learning is thus a
+mechanism that can serve the epistemic pull within the \uvif{} force
+architecture, rather than a paradigm that competes with or replaces it.
+
+\subsection{\uvif{} as an Organizational Intelligence Paradigm}
+
+Stepping back from the technical comparisons, \uvif{} can be described
+as an \emph{organizational intelligence paradigm}---a framework for
+understanding how any complex adaptive system organizes its behavior
+across time and scale to remain coherent, functional, and sustainable.
+This distinguishes it from frameworks that are primarily concerned
+with algorithm design (RL, optimization), neural computation (FEP),
+or statistical learning (data-driven AI).
+
+The organizational perspective brings several distinctive emphases:
+
+\textbf{Multiple timescales.} \uvif{} explicitly addresses the tension
+between immediate efficiency (action efficiency force) and long-term
+viability (sustainability force), recognizing that intelligent
+systems operate across multiple timescales simultaneously.
+
+\textbf{Institutional analogs.} The five forces of \uvif{} have natural
+analogs in organizational management: exploration (epistemic pull),
+risk management (selective protection), resource efficiency
+(computational drag), operational performance (action efficiency),
+and corporate sustainability (sustainability force). This makes
+\uvif{} immediately applicable to the analysis of human organizations
+as well as artificial systems \citep{silvestre2020integrative,
+shrestha2019decision}.
+
+\textbf{Systemic coherence.} \uvif{} treats the system as a whole,
+not as a collection of independently optimized components. The
+Variational Equilibrium is a property of the system's force balance,
+not of any individual component. This reflects the ecological
+insight that resilience is a systemic property that cannot be
+engineered by improving individual components in isolation
+\citep{folke2006resilience,gao2016universal}.
+
+In sum, \uvif{} occupies a position that is complementary to, and
+architecturally above, the existing frameworks for artificial
+intelligence: it provides the organizational principles within which
+optimization, reinforcement learning, active inference, and data-driven
+learning can be embedded in a coherent and sustainable way.
+
+\begin{table}[ht]
+  \centering
+  \caption{Comparative overview of \uvif{} and existing paradigms.}
+  \label{tab:comparison}
+  \begin{tabularx}{\textwidth}{lXXX}
+    \toprule
+    \textbf{Dimension} & \textbf{Classical Optim.} & \textbf{RL / FEP}
+      & \textbf{\uvif{}} \\
+    \midrule
+    Objective structure & Single scalar & Single (with constraints)
+      & Five-force balance \\
+    Stability notion & Convergence to optimum & Policy convergence
+      & Variational Equilibrium \\
+    Resource modeling & Implicit / ignored & Partial
+      & Explicit (drag force) \\
+    Sustainability & External constraint & Not primary
+      & Endogenous force \\
+    Biological grounding & Weak & Strong (FEP) & Strong + extended \\
+    Organizational scope & Narrow & Moderate & Broad \\
+    Long-term adaptability & Limited & Moderate & Core design goal \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+
+
+% Deep revision placeholder inserted.
+% [Further conceptual integration recommended]

@@ -1,0 +1,4 @@
+search range,b*,g*,calib MSE,eval MSE,unexplained %,exact match %
+narrow,8.31,3.24,0.0005,0.0237,14.8,87.8
+widened,50.92,3.95,0.0001,0.0237,14.8,85.6
+very wide,400.0,5.2,0.0001,0.0168,10.5,86.7
