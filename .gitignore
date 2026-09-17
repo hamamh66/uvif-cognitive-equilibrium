@@ -11,3 +11,6 @@
 *.toc
 # OS
 .DS_Store
+
+# compiled output
+*.pdf
