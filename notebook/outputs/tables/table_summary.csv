@@ -1,0 +1,6 @@
+item,status,detail
+Departure from scalar optimization,not shown,a unit-weight scalarization over the same state-dependent components reproduces the model policy in 180/180 environments; the score is itself such a sum
+Irreversibility irreducible to a finite monotone penalty,refuted,"the hinge penalty 22*max(0, loss - 0.15) reproduces the constrained policy in 180/180 environments"
+Horizon dependence of the selected policy,"shown, by stipulation",the horizon enters the sustainability term explicitly; this does not separate a sustainability force from a long-horizon utility term
+Distinct ablation signatures,shown for this model,five single-component ablations differ in mean score and in viability; scored without assigned post-failure values
+Evidence about cognitive systems,none,the functional forms are stipulated by the author; nothing here is measured

@@ -1,0 +1,7 @@
+{
+  "environment_count": 180,
+  "H1_state_aware_fixed_unit_weights_exact_matches": 180,
+  "H3_constructive_finite_hinge_coefficient": 23.0,
+  "H3_exact_grid_policy_matches": 180,
+  "scope": "Constructive audit on the 180 declared environments and the 51x51 policy grid; not a held-out fitted comparison or proof for continuous policies."
+}

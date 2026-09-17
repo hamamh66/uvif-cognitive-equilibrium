@@ -1,72 +1,8 @@
-\documentclass[review, authoryear, times, 10pt]{elsarticle}
-
-%\documentclass[twocolumn,3p,times,procedia]{elsarticle}
-%% The `ecrc' package must be called to make the CRC functionality available
-
-\usepackage{graphicx}
-\usepackage{balance}
-\usepackage{array,threeparttable}
-\usepackage{url}
-\usepackage{float}
-\usepackage[section]{placeins}
-\usepackage{multirow}
-%\usepackage{soul}   % removed: unused, and not part of a base TeX install
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{multicol}
-\usepackage{algorithm}        % provides the floating 'algorithm' environment
-\let\algorithmic\relax        % <— neutralize any pre-defined \algorithmic
-\usepackage{algpseudocode}    % provides \begin{algorithmic} ... \end{algorithmic}
-\usepackage{enumitem}
-\usepackage{booktabs}
-\usepackage{tabularx}
-%\usepackage[ruled,vlined]{algorithm2e}
-\usepackage{caption}
-\usepackage{subcaption} 
-\usepackage{pdflscape}
-
-
-
-
-% ---- Custom commands ----
-\newcommand{\uvif}{\textsc{UVIF}}
-\newcommand{\VEq}{\mathcal{VEq}}
-\newcommand{\Epull}{\mathcal{E}_{\mathrm{pull}}}
-\newcommand{\Drag}{\mathcal{D}_{\mathrm{drag}}}
-\newcommand{\Prot}{\mathcal{P}_{\mathrm{prot}}}
-\newcommand{\Eff}{\mathcal{A}_{\mathrm{eff}}}
-\newcommand{\Sus}{\mathcal{S}_{\mathrm{sus}}}
-\newcommand{\Adm}{\mathcal{C}_{\mathrm{adm}}}
-
-\usepackage{geometry}
-%\geometry{left=1.25cm,right=1.15cm,top=1.9cm,bottom=1.9cm,foot=1.05cm}
-%\setlength\columnsep{0.6cm}
-
-
+\documentclass[review,12pt]{elsarticle}
+\input{preamble}
 \begin{document}
 \begin{frontmatter}
-
-
-\title{UVIF: A Nature-Aligned Framework for Intelligence,\\[0.4em]
-  Stability, and Long-Term Adaptation\\
-  Toward Variational Equilibrium as a Universal Principle\\[0.2em]
-  of Persistent Intelligent Organization}
-
-\author[1,2,3]{Habib Hamam\corref{cor1}}
-\ead{Habib.Hamam@umoncton.ca}
-\cortext[cor1]{Corresponding author.}
-
-\address[1]{Faculty of Engineering, Universit\'e de Moncton, Moncton, NB E1A 3E9, Canada}
-\address[2]{School of Electrical Engineering, University of Johannesburg, Johannesburg 2006, South Africa}
-\address[3]{International Institute of Technology and Management (IITG), Av. des Grandes \'Ecoles, Libreville, Gabon}
-
-\title{UVIF: A Nature-Aligned Framework for Intelligence,\\[0.4em]
-  Stability, and Long-Term Adaptation\\
-  Toward Variational Equilibrium as a Universal Principle\\[0.2em]
-  of Persistent Intelligent Organization}
-
-
+\input{title}
+\input{authors}
 \end{frontmatter}
-
-
 \end{document}

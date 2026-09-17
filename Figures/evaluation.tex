@@ -1,0 +1,13 @@
+\begin{figure}[tbp]
+\centering
+\renewcommand{\baselinestretch}{1}\small
+\begin{tikzpicture}[box/.style={draw,rounded corners,align=center,text width=10cm,minimum height=0.95cm,font=\small},arr/.style={-{Latex},thick},node distance=0.55cm]
+\node[box] (spec) {Specify states, components, constraints,\\and testable hypotheses};
+\node[box,below=of spec] (cal) {Calibrate UVIF and resource-aware alternatives\\under matched conditions};
+\node[box,below=of cal] (test) {Evaluate on held-out environments\\and predefined perturbations};
+\node[box,below=of test] (report) {Report performance, violations, reserves,\\computational costs, and ablations};
+\draw[arr] (spec) -- (cal);\draw[arr] (cal) -- (test);\draw[arr] (test) -- (report);
+\end{tikzpicture}
+\caption{Proposed evaluation workflow. This is a research protocol, not a summary of completed experiments. Schematic prepared as editable TikZ code with OpenAI Codex (GPT-6) assistance.}
+\label{fig:future_roadmap}
+\end{figure}

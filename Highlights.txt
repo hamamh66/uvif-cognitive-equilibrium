@@ -1,0 +1,4 @@
+- UVIF separates five regulatory demands in persistent cognitive systems.
+- Equilibrium, stability, viability, and adaptive tracking are distinguished.
+- A restricted example links force balance to constrained optimization.
+- Matched comparisons are proposed to test the framework's added value.

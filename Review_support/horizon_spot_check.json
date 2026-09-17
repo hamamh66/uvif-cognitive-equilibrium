@@ -1,0 +1,17 @@
+{
+  "short_policy": [
+    0.52,
+    1.0,
+    0.9848053830193708
+  ],
+  "long_policy": [
+    0.38,
+    0.16,
+    0.6105182360686334
+  ],
+  "original_cross_objective_difference": 0.3742871469507374,
+  "common_H1_objective_short": 0.9848053830193708,
+  "common_H1_objective_long": 0.6105182360686334,
+  "long_policy_resource_change_per_step": 0.002999999999999947,
+  "common_H1_objective_difference": 0.3742871469507374
+}

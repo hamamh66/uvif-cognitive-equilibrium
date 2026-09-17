@@ -1,4 +1,4 @@
-constant,setting,value,H1 state-dependent,H2 horizon effect,H4 sustainability ablation hurts
+constant,setting,value,policy varies with state,longer horizon draws less,sustainability ablation lowers viability
 KAPPA,-40%,1.8,True,True,True
 KAPPA,base,3.0,True,True,True
 KAPPA,+40%,4.2,True,True,True
@@ -11,7 +11,7 @@ CD,+40%,0.77,True,True,True
 RHO,-40%,0.54,True,True,True
 RHO,base,0.9,True,True,True
 RHO,+40%,1.26,True,True,True
-CS,-40%,0.33,True,True,True
+CS,-40%,0.33,True,True,False
 CS,base,0.55,True,True,True
 CS,+40%,0.77,True,True,True
 REGEN,-40%,0.18,True,True,True

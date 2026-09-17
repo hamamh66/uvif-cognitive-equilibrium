@@ -1,0 +1,7 @@
+ablation,mean score over viable steps,% runs viable to 150 steps,mean failure step (failed runs)
+intact,0.598,100.0,--
+no epistemic pull,0.497,100.0,--
+no action efficiency,0.638,100.0,--
+no drag,0.063,0.0,74.0
+no protection,0.499,100.0,--
+no sustainability,0.302,0.0,1.0

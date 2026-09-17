@@ -1,0 +1,11 @@
+penalty coefficient b,environments matched,exact match
+2,175/180,False
+5,176/180,False
+10,177/180,False
+15,178/180,False
+20,178/180,False
+21,179/180,False
+22,180/180,True
+23,180/180,True
+30,180/180,True
+50,180/180,True

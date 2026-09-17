@@ -1,334 +1,127 @@
-% ============================================================
-%  Section 4 – The UVIF Organizational Framework
-% ============================================================
 \section{The \uvif{} Organizational Framework}
 \label{sec:uvif_framework}
 
-\subsection{Overview of the \uvif{} Architecture}
+\subsection{State, fields, and admissible dynamics}
+Let $\mathbf{s}\in\mathcal{S}\subseteq\mathbb{R}^n$ describe an explicitly chosen operating state. Depending on the application, its coordinates may include belief summaries, policy parameters, protected memory variables, and resource reserves. The state must contain the variables needed to model their evolution; otherwise the description may require additional memory or stochastic inputs. The following deterministic formulation is a modelling template, not a complete agent implementation.
 
-\uvif{} models an intelligent system as a dynamical entity embedded in
-a structured force field. Rather than specifying a single objective
-function, the framework identifies \emph{five fundamental forces} that
-jointly govern the system's behavior, together with a set of
-\emph{admissibility constraints} that bound the region of legitimate
-operation. The configuration in which these forces balance defines the
-system's \textbf{Variational Equilibrium} (\(\VEq\)).
-
-\begin{figure}[!t]
-\centering
-\includegraphics[width=\linewidth]{Figures/Fig4_UVIF_Force_Architecture.png}
-\caption{UVIF variational force architecture. The framework represents
-intelligence as the balance of multiple competing forces rather than
-the maximization of a single objective. Epistemic uncertainty drives the
-system toward better knowledge, protection preserves safety and
-integrity, computational cost limits excessive complexity, action
-inefficiency penalizes delayed or ineffective decisions, sustainability
-protects long-term viability, and risk accounts for potential adverse
-outcomes. Variational Equilibrium is the stable operating region where
-these forces remain jointly balanced.}
-\label{fig:uvif_force_architecture}
-\end{figure}
-
-Fig.~\ref{fig:uvif_force_architecture} presents the basic architecture
-of \uvif{} in simple terms. The central circle represents
-\emph{Variational Equilibrium}: the region in which the system remains
-stable, useful, and viable. The surrounding forces show that
-intelligence is not produced by one dominant objective alone. Instead,
-the system must continuously balance the need to learn, the need to
-protect itself and others, the cost of computation, the urgency of
-action, the presence of risk, and the requirement of long-term
-sustainability.
-
-This figure also clarifies why \uvif{} differs from conventional
-optimization. In a standard optimization view, the system is usually
-pushed toward minimizing one error or maximizing one reward. In the
-\uvif{} view, no single force should dominate completely. Excessive
-learning may be too slow or intrusive, excessive protection may prevent
-useful adaptation, excessive computational complexity may become
-impractical, and excessive action speed may become reckless. The
-intelligent condition is therefore the balanced state where the system
-can continue to operate adaptively under uncertainty and perturbation.
-
-Formally, let \(\mathcal{S}\) denote the state space of the intelligent
-system and let \(\mathbf{s}(t) \in \mathcal{S}\) be its state
-trajectory. The dynamics of the system are governed by:
+Write the unconstrained update field as
 \begin{equation}
-  \dot{\mathbf{s}}(t) = F\!\bigl(\mathbf{s}(t),\, t\bigr)
-    := \Epull - \Drag - \Prot + \Eff + \Sus,
-  \label{eq:uvif_dynamics}
+ F(\mathbf{s},t)=w_E\Epull-w_D\Drag-w_P\Prot
+                   +w_A\Eff+w_S\Sus,
+ \label{eq:uvif_dynamics}
 \end{equation}
-where the five terms on the right-hand side are the Epistemic Pull,
-Computational Drag, Selective Protection, Action Efficiency, and
-Sustainability fields, respectively, evaluated at state $\mathbf{s}(t)$
-and time $t$. The system is said to be in Variational Equilibrium when:
+where each field is evaluated at $(\mathbf{s},t)$ and each weight $w_i=w_i(\mathbf{s},t)\geq0$ is specified by the model. All weighted terms must be vectors in the same state coordinates and have units of state change per unit time. Raw information gain, latency, and energy consumption cannot be added without explicit scaling and a mapping into these coordinates. The signs are conventions: $\Drag$ and $\Prot$ are defined in the direction of increasing cost or damage, so their negative contributions oppose those changes.
+
+State-dependent weights may encode resource depletion, urgency, or threat. Their update rules are part of the model and must be reported or estimated; dependence on state does not make them free of modelling assumptions. A fixed-weight model is a legitimate special case. A component may also vanish in a particular context, and balance does not require equal force magnitudes.
+
+For a nonempty, closed, convex, time-independent admissibility set $\Adm$, one candidate constrained dynamics is
 \begin{equation}
-  F\!\bigl(\mathbf{s}^*,\, t\bigr) = 0 \quad
-  \text{and} \quad \mathbf{s}^* \in \Adm,
-  \label{eq:veq}
+ \dot{\mathbf{s}}=G(\mathbf{s},t)
+ :=\Pi_{T_{\Adm}(\mathbf{s})} F(\mathbf{s},t),
+ \qquad \mathbf{s}(0)\in\Adm,
+ \label{eq:projected}
 \end{equation}
-where $\Adm$ denotes the admissibility set (Section~\ref{subsec:admissibility}).
+where $T_{\Adm}(\mathbf{s})$ is the tangent cone of feasible directions and $\Pi$ is Euclidean projection onto that cone. This is a first-order idealization in which the update velocity can be selected directly. Existence, uniqueness, and invariance require appropriate regularity of the field and a suitable solution concept for the projected dynamics. It does not automatically implement a feasible controller for a plant with actuator limits, delays, inertia, or uncertain dynamics.
 
-This formulation is deliberately abstract; in Sections~\ref{subsec:epistemic}
-through~\ref{subsec:sustainability} we give each force a concrete
-interpretation and motivate its form. The power of the formulation
-lies not in any particular mathematical instantiation but in the
-\emph{relational structure} it imposes: no single force dominates, each
-force constrains the others, and the equilibrium that results is a
-property of the system as a whole, not of any individual component.
+\input{Figures/architecture}
 
-\begin{definition}[Variational Equilibrium]
-  A state $\mathbf{s}^* \in \Adm$ is a \emph{Variational Equilibrium}
-  of a \uvif{} system if the net force at $\mathbf{s}^*$ is zero and
-  the equilibrium is stable: there exists a neighborhood
-  $\mathcal{N}(\mathbf{s}^*)$ such that for all
-  $\mathbf{s}(0) \in \mathcal{N}(\mathbf{s}^*)$, the trajectory
-  $\mathbf{s}(t)$ remains in $\mathcal{N}(\mathbf{s}^*)$ and converges
-  toward $\mathbf{s}^*$ as $t \to \infty$.
-\end{definition}
-
-In practice, Variational Equilibria will often be \emph{manifolds}
-rather than isolated points---reflecting the homeodynamic picture of
-biological stability \citep{lloyd2001homeodynamics,petitjean2025homeodynamics}.
-A system may move along the equilibrium manifold in response to slowly
-changing external conditions without losing stability.
-
-\subsection{Epistemic Pull and the Drive Toward Understanding}
+\subsection{The five regulatory components}
 \label{subsec:epistemic}
-
-The first force in \uvif{} is the \textbf{Epistemic Pull}
-(\(\Epull\)), which captures the system's intrinsic drive to reduce
-uncertainty about its environment, its own states, and the
-consequences of its actions. Epistemic pull is the engine of
-learning: without it, the system would not gather new information,
-form new representations, or update its models of the world.
-
-In humans, this drive manifests as curiosity---the intrinsic
-motivation to explore and understand that has been shown to activate
-reward circuitry in the brain and to enhance memory formation
-\citep{ligneul2018curiosity,dubey2019curiosity}. In the free-energy
-framework, the epistemic value of an action is its expected reduction
-of uncertainty---the information gain that comes from sampling a novel
-state of the world \citep{friston2017curiosity,parr2018generalised}.
-\uvif{} incorporates this insight as a force, not an auxiliary
-objective: epistemic pull actively moves the system toward states
-from which uncertainty can be reduced.
-
-Formally, \(\Epull(\mathbf{s})\) is proportional to the gradient of
-expected information gain with respect to the system's state:
+\textbf{Epistemic pull.} This component favours informative changes in the operating state. In a differentiable surrogate model one may set
 \begin{equation}
-  \Epull(\mathbf{s}) \propto
-  \nabla_{\mathbf{s}} \;\mathbb{E}\bigl[\mathrm{IG}(\mathbf{s})\bigr],
-  \label{eq:epistemic_pull}
+ \Epull(\mathbf{s},t)=\nabla_{\mathbf{s}} I(\mathbf{s},t),
+ \label{eq:epistemic_pull}
 \end{equation}
-where $\mathrm{IG}(\mathbf{s})$ denotes the information gain
-achievable from state $\mathbf{s}$, measured, for example, as the
-reduction in entropy of the system's uncertainty distribution.
+where $I$ is expected information gain under a stated observation model and sampling policy. Expected information gain must identify the uncertainty being reduced; it is not interchangeable with confidence or task reward. For discrete decisions, a gradient requires a justified relaxation or an alternative update rule. Curiosity and active inference provide motivation for this component \citep{dubey2019curiosity,parr2018generalised}.
 
-The epistemic pull is not unbounded curiosity. It is balanced by the
-other forces, particularly computational drag and selective protection,
-which prevent the system from pursuing information at ruinous cost or
-at the expense of its protected internal states.
+\textbf{Selective protection.} A candidate field is $\Prot=\nabla_{\mathbf{s}}L_P$, where $L_P$ measures damage to specified internal structures or loss of retained competence. This can describe regularization or resistance to updating protected parameters. It may reduce interference with previous learning, but it does not guarantee freedom from catastrophic forgetting. Protection also differs from a hard safety requirement: a soft penalty can be outweighed, whereas an admissibility constraint is intended to exclude a state or action.
 
-\subsection{Selective Protection and Controlled Disclosure}
-
-The second force is \textbf{Selective Protection} (\(\Prot\)), which
-represents the system's imperative to preserve its critical internal
-structure---its core representations, its long-term knowledge, its
-fundamental operating parameters---against corruption by noise, by
-adversarial interference, or by the pressure of short-term optimization.
-
-In biology, this force is instantiated at multiple levels: the blood-brain
-barrier selectively filters what reaches neural tissue; the immune
-system discriminates self from non-self; epigenetic mechanisms protect
-developmental programs from stochastic variation \citep{farnsworth2025setpoint}.
-In information theory, selective protection maps onto the distinction
-between \emph{core} information that must be preserved and
-\emph{surface} information that can be updated freely.
-
-In an artificial intelligent system, selective protection governs which
-parameters are frozen or regularized heavily (protecting accumulated
-knowledge) and which are allowed to adapt freely (enabling ongoing
-learning). It prevents catastrophic forgetting by imposing asymmetric
-plasticity: high protection for foundational knowledge, lower protection
-for recently acquired representations.
-
-\subsection{Computational Drag and Resource Constraints}
-
-The third force is \textbf{Computational Drag} (\(\Drag\)), which
-captures the cost of computation, energy, memory, and any other
-resource that the system consumes in the pursuit of its objectives.
-Drag is an opposing force: it resists state changes that require
-disproportionate resource expenditure, biasing the system toward
-efficient, low-cost strategies.
-
-Computational drag has no analog in classical optimization, where
-resource costs are either ignored or treated as constraints external
-to the objective function. But it is deeply natural from both a
-biological and engineering perspective. Biological systems operate
-under tight thermodynamic constraints: the brain consumes roughly
-20 watts, a fact that has shaped the evolution of its algorithms
-profoundly. The efficiency imperatives of biological computation---
-sparse coding, predictive processing, hierarchical representations---
-are all adaptive responses to the metabolic cost of neural activity
-\citep{kim2022freeenergy}.
-
-In \uvif{}, drag is formalized as a dissipative term in the dynamics:
+\textbf{Computational drag.} A compatible cost-based field is
 \begin{equation}
-  \Drag(\mathbf{s}, \dot{\mathbf{s}}) \propto
-  \|\dot{\mathbf{s}}\|^2 \cdot C(\mathbf{s}),
-  \label{eq:drag}
+ \Drag(\mathbf{s},t)=\nabla_{\mathbf{s}} C_{\mathrm{comp}}(\mathbf{s},t),
+ \label{eq:drag}
 \end{equation}
-where $C(\mathbf{s})$ is a state-dependent cost coefficient
-that encodes the resource intensity of operating at state $\mathbf{s}$.
-Computationally expensive states---those requiring large models, high
-energy, or intensive memory---have high $C$, and the system is
-naturally biased away from them when the epistemic and efficiency
-benefits do not justify the cost.
+where $C_{\mathrm{comp}}$ is a differentiable surrogate for computation, latency, or memory expenditure. This is a cost gradient, not literal mechanical dissipation. A velocity-dependent damping term would require a different, explicitly specified dynamical model. Resource-rational analysis supplies an established basis for making computational expenditure part of decision-making \citep{lieder2019resourcerational}.
 
-\subsection{Action Efficiency Under Uncertainty}
+\textbf{Action efficiency.} This component rewards useful and timely action. For a differentiable policy $\pi_{\mathbf{s}}$ and transition model $p$, define
+\begin{align}
+ J_A(\mathbf{s},t)
+ &=\mathbb{E}_{a\sim\pi_{\mathbf{s}},\,\mathbf{s}'\sim p(\cdot\mid\mathbf{s},a)}
+       [r(\mathbf{s},a,\mathbf{s}')-c_{\mathrm{act}}(\mathbf{s},a)],
+       \label{eq:action_value}\\
+ \Eff(\mathbf{s},t)&=\nabla_{\mathbf{s}}J_A(\mathbf{s},t).
+ \label{eq:action_eff}
+\end{align}
+Here $r$ is an independently specified task benefit and $c_{\mathrm{act}}$ represents action cost or delay. Defining value only as proximity to an as-yet unknown equilibrium would be circular. This example is a local surrogate; a sequential implementation must specify its planning horizon and account for state transitions. Costs assigned to this component should not also be counted in computational drag without an explicit reason.
 
-The fourth force is \textbf{Action Efficiency} (\(\Eff\)), which
-governs the system's selection of actions under uncertainty. Efficiency
-here means not computational efficiency but \emph{policy quality}: the
-system should take actions that move it toward its goals with minimal
-wasted effort, avoiding both under-exploration (missing information
-that would improve future decisions) and over-exploration (gathering
-information at unnecessary cost).
-
-This force connects \uvif{} to the epistemic-pragmatic balance studied
-in active inference \citep{parr2022active,zhang2024fep_overview}.
-In active inference, expected free energy combines epistemic value
-(information gain) with pragmatic value (reward) to select actions.
-\uvif{} embeds a similar logic within its force architecture: action
-efficiency drives the system toward actions whose expected outcomes
-align with the Variational Equilibrium, weighted by both their
-informational and practical payoffs.
-
-Formally:
+\textbf{Sustainability.} This component represents prospective loss of operating capacity, for example through
 \begin{equation}
-  \Eff(\mathbf{s}, a) \propto
-  \mathbb{E}_{p(\mathbf{s}'|a,\mathbf{s})}\bigl[V(\mathbf{s}') - C(a)\bigr],
-  \label{eq:action_eff}
+ \Sus(\mathbf{s},t)=-\nabla_{\mathbf{s}}L_S(\mathbf{s},t),
+ \label{eq:sustainability}
 \end{equation}
-where $V(\mathbf{s}')$ is the value of reaching state $\mathbf{s}'$
-(in terms of proximity to Variational Equilibrium) and $C(a)$ is the
-cost of action $a$.
-
-\subsection{Sustainability and Long-Term Adaptive Stability}
-\label{subsec:sustainability}
-
-The fifth and perhaps most distinctive force in \uvif{} is
-\textbf{Sustainability} (\(\Sus\)). This force represents the
-system's drive to preserve the conditions that make its own continued
-functioning possible over extended time horizons. It is the analog, in
-artificial and organizational intelligence, of the ecological principle
-of carrying capacity: the recognition that any system embedded in a
-resource-constrained environment must modulate its behavior to avoid
-depleting the conditions that sustain it.
-
-In ecosystems, sustainability emerges from the coevolution of organisms
-and environments: organisms that overexploit their resources go extinct,
-while those that maintain the productivity of their environment persist
-\citep{folke2006resilience,dyke2013environmental}. In organizations,
-sustainability drives are reflected in long-term strategic planning,
-stakeholder management, and the willingness to forgo short-term gains
-to preserve long-term viability \citep{silvestre2020integrative}.
-
-In a \uvif{} system, the sustainability field is a negative feedback
-on behaviors that degrade the system's long-term operating environment:
+where $L_S$ evaluates predicted depletion or degradation over a stated horizon. A penalty on instantaneous resource use alone does not establish long-term sustainability. A reserve $b$, for example, may need a balance law
 \begin{equation}
-  \Sus(\mathbf{s}) \propto
-  -\nabla_{\mathbf{s}} \;\mathcal{R}_{\mathrm{env}}(\mathbf{s}),
-  \label{eq:sustainability}
+ \dot b=r_{\mathrm{in}}(\mathbf{s},a,t)-r_{\mathrm{use}}(\mathbf{s},a,t),
+ \qquad b\geq b_{\min},
+ \label{eq:reserve}
 \end{equation}
-where $\mathcal{R}_{\mathrm{env}}(\mathbf{s})$ measures the rate of
-environmental resource depletion induced by operating at state $\mathbf{s}$.
-States that deplete resources rapidly are pushed against; states
-that replenish or preserve resources are favored.
+with replenishment and consumption rates in compatible units. If $b$ is part of $\mathbf{s}$, this balance law must be implemented in the corresponding coordinate of the full dynamics; it cannot be an unrelated auxiliary equation. Projection alone cannot create an unavailable replenishment action.
 
-\subsection{Admissibility Constraints}
+The distinction between drag and sustainability is temporal and operational: drag concerns present inference expenditure, whereas sustainability concerns future availability of required resources. Selective protection concerns damage to designated structures. These quantities can overlap, so the decomposition requires an accounting convention, normalization, and evidence that the components can be separately measured or manipulated.
+
+\subsection{Admissibility and safety enforcement}
 \label{subsec:admissibility}
-
-The five forces jointly define a dynamical landscape, but the system
-must also operate within a region of \emph{admissible} states---states
-that satisfy hard constraints imposed by physical reality, ethical
-norms, safety requirements, and institutional boundaries.
-
-\begin{definition}[Admissibility Set]
-  The admissibility set $\Adm \subset \mathcal{S}$ is the set of states
-  satisfying:
-  \begin{enumerate}[label=(\alph*)]
-    \item \emph{Physical feasibility}: the state is achievable given the
-      system's physical constitution and resource limits.
-    \item \emph{Safety}: the state does not expose the system or its
-      environment to unacceptable risk.
-    \item \emph{Ethical alignment}: the state is consistent with the
-      normative constraints governing the system's deployment context.
-    \item \emph{Legality}: the state complies with applicable rules and
-      regulations.
-  \end{enumerate}
+\begin{definition}[Admissibility set]
+$\Adm$ is the set of states satisfying the physical and operational requirements chosen for a specified deployment context. Where smooth inequality constraints suffice, write $\Adm=\{\mathbf{s}:h_j(\mathbf{s})\geq0,\ j=1,\ldots,m\}$.
 \end{definition}
 
-Admissibility constraints are not forces in the dynamical sense; they
-are hard boundaries. The force dynamics operate within $\Adm$, and
-any trajectory that would leave $\Adm$ is reflected back by a
-repulsive boundary potential. This structure ensures that Variational
-Equilibria are always physically realizable and ethically acceptable,
-not merely mathematically convenient.
+At a smooth boundary, an inward or tangent velocity satisfies $\nabla h_j(\mathbf{s})^\top\dot{\mathbf{s}}\geq0$ for active constraints. Such conditions motivate projection and barrier-based safety mechanisms, but their applicability depends on the actual system dynamics \citep{ames2019barrier}. A time-dependent constraint additionally involves $\partial h_j/\partial t$. Nonconvex domains, discrete actions, and uncertain disturbances require separate treatment.
 
-\subsection{Variational Equilibrium as the Core Principle of Intelligence}
+Ethical and legal requirements can inform admissibility specifications, but they are not generally reducible to a complete set of state inequalities. A mathematical set certifies only the encoded model properties under its assumptions. It does not establish ethical acceptability or compliance by itself. Risk is handled through protection, explicit risk constraints, or the task model; it is not introduced as an unspecified sixth force.
 
-The five forces and the admissibility constraints together define the
-\emph{landscape of intelligence} for a \uvif{} system. Variational
-Equilibrium is the natural resting configuration of this landscape:
-the point (or manifold) at which the competing forces are balanced,
-the admissibility constraints are satisfied, and the system can sustain
-its operation indefinitely.
+\subsection{Equilibrium, stability, and viable operation}
+\begin{definition}[Stationary Variational Equilibrium]
+For an autonomous constrained dynamics $\dot{\mathbf{s}}=G(\mathbf{s})$, the equilibrium set is
+\begin{equation}
+ \VEq=\{\mathbf{s}^*\in\Adm:G(\mathbf{s}^*)=0\}.
+ \label{eq:veq}
+\end{equation}
+A stationary Variational Equilibrium is any element of this set. Stability is an additional property, not a consequence of this definition.
+\end{definition}
 
-This equilibrium is not static. As the external environment changes,
-the force field changes, and the equilibrium shifts. The system tracks
-the shifting equilibrium through the same dynamics that define it---
-the force balance continuously recalibrates in response to environmental
-feedback. This is the variational analog of adaptive homeostasis in
-biology: not a fixed setpoint, but a setpoint that adapts to the
-conditions it encounters \citep{davies2016adaptive,bich2025homeostasis}.
+An equilibrium is Lyapunov stable if, for every $\varepsilon>0$, a sufficiently small initial displacement keeps the trajectory within $\varepsilon$ for all future times. It is locally asymptotically stable if it is stable and trajectories from a neighbourhood also converge to it. Initial states and neighbourhoods are understood relative to $\Adm$. For a nonisolated equilibrium set, convergence to the set need not imply convergence to a particular equilibrium.
 
-\begin{principle}[The Variational Equilibrium Principle]
-\label{prin:veq2}
-Intelligence, in the \uvif{} sense, is the capacity of a system
-to maintain its state trajectory in the vicinity of Variational
-Equilibrium across a wide range of internal and external perturbations,
-while allowing the equilibrium itself to evolve in response to
-persistent environmental changes.
-\end{principle}
+At an interior equilibrium, $G=F=0$. At a constrained boundary equilibrium, $G=0$ can hold even when $F\neq0$, because the unconstrained update points out of the feasible region. The equilibrium set need not be smooth, connected, nonempty, or a manifold. Moreover, a trajectory cannot move along a set of stationary points under the same autonomous field while $G$ remains zero everywhere on that trajectory.
 
-This principle subsumes both stability (the system returns to
-equilibrium after perturbation) and adaptability (the equilibrium
-shifts when the environment makes the current operating point
-non-viable). It is, in other words, the formal expression of what
-biologists call \emph{homeodynamics} \citep{lloyd2001homeodynamics}
-and ecologists call \emph{adaptive resilience} \citep{folke2006resilience},
-translated into the language of variational dynamics and applied to
-the design of intelligent systems.
+An invariant operating set $K\subseteq\Adm$ is a different object: trajectories starting in $K$ remain there, potentially with $G\neq0$. It can contain cycles or other sustained activity. Viability asks whether admissible operation can be maintained by available controls, whereas invariance is relative to specified dynamics or a controller. Neither property is equivalent to zero net force or Pareto optimality.
 
+For time-varying environments, the instantaneous zero set $\VEq(t)$ need not itself be invariant. Tracking a selected $\mathbf{s}^*(t)$ requires a controller and bounds on disturbances and the rate of change of that reference. Accordingly, the broader \uvif{} design objective is adaptive viability, and stationary equilibrium is one restricted way to study it.
 
+\subsection{A restricted analytical example}
+\label{subsec:example}
+Consider a dimensionless scalar operating variable $x\in[0,1]$ in a fixed environment. Let $e,p,a,s\in[0,1]$ be stipulated reference levels and let $\alpha_E,\alpha_P,\alpha_D,\alpha_A,\alpha_S>0$ be rate coefficients. Define the weighted component fields by
+\begin{align}
+ w_E\Epull&=\alpha_E(e-x), & w_P\Prot&=\alpha_P(x-p),\nonumber\\
+ w_D\Drag&=\alpha_Dx, & w_A\Eff&=\alpha_A(a-x),\nonumber\\
+ w_S\Sus&=\alpha_S(s-x).&&
+ \label{eq:toy_fields}
+\end{align}
+These linear fields are illustrative choices, not measured descriptions of cognition. Writing $k=\alpha_E+\alpha_P+\alpha_D+\alpha_A+\alpha_S$, their net field is $F(x)=k(x^*-x)$, where
+\begin{equation}
+ x^*=\frac{\alpha_E e+\alpha_P p+\alpha_A a+\alpha_S s}{k}.
+ \label{eq:toy_equilibrium}
+\end{equation}
+The stated assumptions imply $x^*\in[0,1]$. The field points inward or is tangent at both endpoints, so no projection correction is needed. For any $x(0)\in[0,1]$,
+\begin{equation}
+ x(t)=x^*+[x(0)-x^*]e^{-kt},
+ \label{eq:toy_solution}
+\end{equation}
+which remains in the interval and converges exponentially to $x^*$. Equivalently, $V=(x-x^*)^2/2$ satisfies $\dot V=-k(x-x^*)^2$. This proves stability only for this stipulated scalar example.
 
-% =========================
-% Added framework refinements
-% =========================
-
-\subsection{Bounded Epistemic Acquisition}
-
-The epistemic pull within UVIF continuously drives systems toward improved understanding, reduced uncertainty, and adaptive model refinement. However, this epistemic process is permanently bounded by incomplete observability, probabilistic environmental evolution, and finite resource constraints \citep{lieder2019resourcerational,griffiths2015rational}.
-
-UVIF therefore rejects the assumption that intelligent systems can or should seek exhaustive certainty before acting. Excessive information acquisition may itself consume unsustainable computational, energetic, or temporal resources. The pursuit of maximal certainty may paradoxically reduce adaptive viability when delayed action introduces escalating systemic risk \citep{callaway2022rational}.
-
-Consequently, epistemic intelligence in UVIF is not defined by complete certainty, but by the ability to maintain sufficiently informed adaptive operation under bounded knowledge conditions. The objective is viable equilibrium rather than exhaustive disclosure.
-
-\subsection{Reasonable Action Under Uncertainty}
-
-The action-efficiency force in UVIF does not seek perfectly optimal decisions under complete information. Instead, it seeks adaptive and sustainable action under constrained observability, finite time horizons, and evolving environmental conditions.
-
-Natural systems routinely operate according to this principle. Biological organisms act before certainty is complete. Human cognition balances risk against delay. Ecological systems adapt incrementally under fluctuating conditions rather than through exhaustive predictive optimization \citep{schulkin2019allostasis,callaway2022rational}.
-
-Within UVIF, intelligent action therefore corresponds to reasonable viability rather than theoretical perfection. A decision is considered intelligent not because it minimizes all possible future error, but because it preserves coherent adaptive functionality while maintaining long-term equilibrium across competing organizational forces.
+The same dynamics is gradient descent on
+\begin{align}
+ \Phi(x)=\tfrac12[&\alpha_E(x-e)^2+\alpha_P(x-p)^2+\alpha_Dx^2\nonumber\\
+                 &+\alpha_A(x-a)^2+\alpha_S(x-s)^2].
+ \label{eq:toy_potential}
+\end{align}
+Thus its equilibrium also minimizes a scalar objective on $[0,1]$. The example demonstrates that a force decomposition can be compatible with optimization; it cannot establish superiority over it. More generally, fixed weights and compatible gradient fields can yield a common potential, whereas state-dependent weights need not. Determining the relevant case is a property of a specified implementation.

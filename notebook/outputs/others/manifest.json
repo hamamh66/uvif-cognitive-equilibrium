@@ -1,8 +1,7 @@
 {
   "project": "UVIF_CognitiveEquilibrium",
   "seed": 20260916,
-  "n_calibration_envs": 90,
-  "n_evaluation_envs": 90,
+  "n_environments": 180,
   "constants": {
     "KAPPA": 3.0,
     "LAM": 0.35,
@@ -12,15 +11,22 @@
     "REGEN": 0.3
   },
   "P_MAX": 0.15,
+  "hinge_b_exact_match": 22,
+  "unit_weight_agreement": "180/180",
   "figures": [
     "figure_H1_state_dependent_weighting.png",
     "figure_H2_horizon_contrast.png",
-    "figure_H4_failure_signatures.png"
+    "figure_H4_failure_signatures.png",
+    "figure_horizon_contrast.png"
   ],
   "tables": [
     "table_H3_monotone_penalty_fits.csv",
     "table_H4_failure_signatures.csv",
+    "table_component_ablations.csv",
+    "table_hinge_counterexample.csv",
+    "table_sensitivity.csv",
     "table_sensitivity_analysis.csv",
+    "table_summary.csv",
     "table_summary_H1_H4.csv"
   ]
 }

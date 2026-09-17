@@ -1,129 +1,16 @@
-%\colorbox{yellow!30}{
-% \documentclass[twocolumn,3p,times]{elsarticle}
-\documentclass[review, times, 10pt]{elsarticle}
-
-%\documentclass[twocolumn,3p,times,procedia]{elsarticle}
-%% The `ecrc' package must be called to make the CRC functionality available
-\usepackage{lineno}
-\usepackage{hyperref}
-\modulolinenumbers[5]
-\usepackage{graphicx}
-\usepackage{balance}
-\usepackage{array,threeparttable}
-\usepackage{url}
-\usepackage{float}
-\usepackage[section]{placeins}
-\usepackage{multirow}
-%\usepackage{soul}   % removed: unused, and not part of a base TeX install
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{multicol}
-\usepackage{algorithm}        % provides the floating 'algorithm' environment
-\let\algorithmic\relax        % <— neutralize any pre-defined \algorithmic
-\usepackage{algpseudocode}    % provides \begin{algorithmic} ... \end{algorithmic}
-\usepackage{enumitem}
-\usepackage{booktabs}
-\usepackage{tabularx}
-%\usepackage[ruled,vlined]{algorithm2e}
-\usepackage{caption}
-\usepackage{subcaption} 
-\usepackage{pdflscape}
-\usepackage{tikz}
-\usetikzlibrary{arrows.meta,positioning,fit,backgrounds,calc}
-
-
-
-\captionsetup[figure]{labelfont={footnotesize,bf},name={Fig.},labelsep=period,font={footnotesize}}
-\captionsetup[table]{labelfont={footnotesize,bf},name={Table},labelsep=newline,singlelinecheck=false,font={footnotesize}}
-\captionsetup[algorithm]{labelfont={footnotesize,bf},font={footnotesize}}
-\usepackage{titlesec}
-\titleformat*{\section}{\small \bf}
-\titleformat*{\subsection}{\small \em}
-\titleformat*{\subsubsection}{\small \em}
-
-\usepackage{xcolor}
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-\fancyheadoffset[RO,EL]{0pt}
-\fancyhead[RO,LE]{\footnotesize \thepage}
-\fancyhead[ER]{\em \footnotesize H. Hamam}
-\fancyhead[LO]{\em \footnotesize Variational Equilibrium in Cognitive Systems}
-
-% ---- Theorem environments ----
-\newtheorem{definition}{Definition}[section]
-\newtheorem{principle}{Principle}[section]
-\newtheorem{proposition}{Proposition}[section]
-\newtheorem{remark}{Remark}[section]
-
-% ---- Custom commands ----
-\newcommand{\uvif}{\textsc{UVIF}}
-\newcommand{\VEq}{\mathcal{VEq}}
-\newcommand{\Epull}{\mathcal{E}_{\mathrm{pull}}}
-\newcommand{\Drag}{\mathcal{D}_{\mathrm{drag}}}
-\newcommand{\Prot}{\mathcal{P}_{\mathrm{prot}}}
-\newcommand{\Eff}{\mathcal{A}_{\mathrm{eff}}}
-\newcommand{\Sus}{\mathcal{S}_{\mathrm{sus}}}
-\newcommand{\Adm}{\mathcal{C}_{\mathrm{adm}}}
-
-\usepackage{geometry}
-%\geometry{left=1.25cm,right=1.15cm,top=1.9cm,bottom=1.9cm,foot=1.05cm}
-%\setlength\columnsep{0.6cm}
-
+\documentclass[review,12pt]{elsarticle}
+\input{preamble}
 \journal{Cognitive Systems Research}
-
-\begin{document}\small
+\begin{document}
 \begin{frontmatter}
-
-\author[1,2,3]{Habib Hamam\corref{cor1}}
-\ead{Habib.Hamam@umoncton.ca}
-\cortext[cor1]{Corresponding author.}
-
-\address[1]{Faculty of Engineering, Universit\'e de Moncton, Moncton, NB E1A 3E9, Canada}
-\address[2]{School of Electrical Engineering, University of Johannesburg, Johannesburg 2006, South Africa}
-\address[3]{International Institute of Technology and Management (IITG), Av. des Grandes \'Ecoles, Libreville, Gabon}
-
-\title{Variational Equilibrium as an Organizing Principle\\[0.2em]
-  of Natural and Artificial Cognitive Systems:\\[0.4em]
-  From Objective Maximization to Balanced Persistence}
-
+\input{title}
+\input{authors}
 \begin{abstract}
-Cognitive systems---biological and artificial alike---are routinely modelled as
-optimizers: agents that maximize a scalar objective such as reward, utility,
-accuracy, or negative prediction error. This paper argues that maximization is
-the wrong idealization for any cognitive system that must remain functional over
-long horizons, and develops an alternative. We introduce the \textbf{Unified
-Variational Intelligence Framework (\uvif{})}, in which cognition is characterized
-not by convergence toward a fixed target but by the continuous, constrained
-balancing of five competing forces: an \emph{epistemic pull} driving the
-acquisition of understanding, a \emph{protective shield} preserving critical
-internal states, a \emph{computational drag} enforcing resource realism, an
-\emph{efficiency imperative} governing action under time pressure, and a
-\emph{sustainability field} ensuring long-term viability. The organizing
-principle is \emph{Variational Equilibrium} (\(\VEq\)): a dynamic, adaptive
-operating manifold that neither freezes a system into rigidity nor dissolves it
-into instability, but sustains purposeful coherence through time. We position
-\uvif{} with respect to the theoretical frameworks closest to it in cognitive
-systems research---the free-energy principle and active inference,
-resource-rational analysis, allostatic regulation, and symbolic and hybrid
-cognitive architectures---and identify what it adds: an explicit separation of
-epistemic from pragmatic drives rather than their conflation in a single
-functional, and the elevation of resource cost and long-horizon sustainability
-from implementation details to first-class forces in the system's dynamics. The
-framework is developed conceptually and illustrated across biological
-regulation, ecological resilience, human cognition, artificial agents, and
-organizational systems. We state its claims as hypotheses rather than theorems,
-specify the empirical predictions that would discriminate it from competing
-accounts, and set out the mathematical and experimental work required to test
-them.
+\input{abstract_content}
 \end{abstract}
-
-\begin{keyword}
-Variational equilibrium \sep Cognitive architecture \sep Bounded rationality \sep Active inference \sep Homeostasis and allostasis \sep Adaptive autonomous systems
-\end{keyword}
-
+\input{keywords}
 \end{frontmatter}
-
+\linenumbers
 \input{Sections/01_introduction}
 \input{Sections/02_optimization_equilibrium}
 \input{Sections/03_philosophical_foundations}
@@ -136,34 +23,21 @@ Variational equilibrium \sep Cognitive architecture \sep Bounded rationality \se
 \input{Sections/10_limitations}
 \input{Sections/11_future}
 \input{Sections/12_conclusion}
-
-
 \section*{Data availability}
-No empirical data were collected or analysed in this study. The manuscript
-sources, the reference implementation of the framework, and the simulation code
-together with the figures, result tables and run logs it produces are openly
-available in the GitHub repository accompanying this article
-\citep{Hamam2026GitHub}.
-
-
+No empirical datasets are reported in this conceptual study. The analytical example is specified in full in Section~\ref{subsec:example}. Companion policy-grid simulation code and saved outputs are publicly accessible in the versioned repository \citep{Hamam2026GitHub}. Those illustrative simulations are distinct from the revised vector-field formulation and do not establish the comparative hypotheses as validated findings.
 \section*{CRediT author contribution statement}
 \textbf{Habib Hamam:} Conceptualization, Methodology, Formal analysis, Investigation, Writing -- original draft, Writing -- review \& editing.
-
-\section*{Funding Statement}
-This work was supported by Université de Moncton, University of Johannesburg, IITG, and CRSNG/NSERC under Grant RGPIN-2025-05918.
-
-\section*{Acknowledgment} 
+\section*{Funding}
+This work was supported by Universit\'e de Moncton, University of Johannesburg, IITG, and CRSNG/NSERC under Grant RGPIN-2025-05918.
+\section*{Acknowledgments}
 The author acknowledges the support of the affiliating institutions for facilitating this research.
-
-
-\section*{Declaration of Competing Interest}
+\section*{Declaration of competing interest}
 The author declares that they have no known competing financial interests or personal relationships that could have influenced the work reported in this paper.
-
-\section*{Ethics statements} Not applicable
-
+\section*{Ethics statement}
+Not applicable. This conceptual study reports no research involving human participants or animals.
+\section*{Declaration of generative AI and AI-assisted technologies in the manuscript preparation process}
+OpenAI Codex (GPT-6) was used to assist with critical review, restructuring, language revision, mathematical consistency checks, LaTeX editing, and preparation of the schematic diagrams. The author is responsible for independently verifying the arguments, equations, references, and figures and for approving the final manuscript.
+% Before submission, confirm completed author review and disclose any other AI tools used.
 \bibliographystyle{elsarticle-num}
 \bibliography{Sections/References}
-
-
 \end{document}
-

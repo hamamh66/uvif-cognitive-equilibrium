@@ -1,307 +1,45 @@
-% ============================================================
-%  Section 6 – Variational Equilibrium in Cognitive Systems
-% ============================================================
-\section{Variational Equilibrium in Natural and Artificial Cognitive Systems}
+\section{Relation to Cognitive Theories and Testable Hypotheses}
 \label{sec:cognitive_systems}
 
-The preceding sections developed \uvif{} as a general account of persistent
-organization. This section narrows the focus to the case that motivates the
-framework most directly and constrains it most sharply: cognition. Cognitive
-systems are the setting in which the five forces are simultaneously observable,
-in which competing formal accounts already exist, and in which the framework's
-claims can therefore be made to do discriminating work rather than merely
-descriptive work.
-
-The argument proceeds in four steps. We first state what it means, concretely,
-for a cognitive system to occupy a Variational Equilibrium. We then show that
-three established research programmes in cognitive science---predictive
-processing and active inference, resource-rational analysis, and allostatic
-regulation---each capture a projection of that equilibrium onto a subset of the
-forces, and that their well-known points of friction with one another arise
-precisely where the omitted forces matter. We then turn to cognitive
-architectures, asking what the framework implies for the design of integrated
-cognitive systems. We close by stating the predictions that distinguish \uvif{}
-from these neighbours, since a framework that reorganizes existing results
-without generating new ones has not earned its place.
-
-\subsection{Cognition as a Balance of Forces}
+\subsection{Cognitive interpretation}
 \label{subsec:cognition_forces}
+For a cognitive implementation, the state might include a belief representation, a policy, retained knowledge, and resource estimates. Epistemic pull then concerns informative sampling; selective protection concerns retention and integrity; computational drag concerns the cost of inference; action efficiency concerns task performance and timeliness; and sustainability concerns future capacity to continue those activities. These are modelling assignments whose separability must be tested.
 
-Consider a cognitive system embedded in an environment it cannot fully observe,
-equipped with finite metabolic and computational resources, and required to act
-before its uncertainty has been resolved. Five pressures act on such a system at
-every moment.
+A cognitive Variational Equilibrium uses the same stationary definition as Eq.~\eqref{eq:veq}. It is not defined as a point where one objective cannot improve without harming another: that would introduce a different, Pareto-based notion. Continuing cognition is more naturally described through trajectories in an admissible operating set, with equilibria relevant only to particular state summaries or fixed conditions.
 
-The \emph{epistemic pull} (\(\Epull\)) drives the acquisition of information
-that would reduce uncertainty about the environment and about the consequences
-of the system's own actions. In cognitive terms this is curiosity, exploratory
-sampling, attention allocation, and deliberate hypothesis testing.
-
-The \emph{protective shield} (\(\Prot\)) preserves internal states whose
-disruption would be catastrophic or irreversible. In biological cognition this
-includes the physiological variables that must remain within narrow bounds; in
-cognitive terms it includes the stability of core representations, identity, and
-commitments that are not renegotiated in response to every incoming observation.
-
-The \emph{computational drag} (\(\Drag\)) is the cost of inference itself. Every
-cognitive operation consumes time, energy, and working memory. This is not a
-nuisance term: for a brain operating under a severe metabolic budget, the cost of
-computing an answer is commensurate with the value of having it.
-
-The \emph{efficiency imperative} (\(\Eff\)) demands that action occur within the
-window in which it remains useful. A decision that is correct but late is, in
-many ecologically realistic settings, indistinguishable in consequence from a
-decision that is wrong.
-
-The \emph{sustainability field} (\(\Sus\)) requires that the system's operating
-policy remain feasible over horizons far longer than any single decision. A
-cognitive strategy that is locally optimal but exhausts the resources on which
-future cognition depends is not intelligent in the sense the framework intends.
-
-\begin{definition}[Cognitive Variational Equilibrium]
-\label{def:cog_veq}
-A cognitive system occupies a Variational Equilibrium when its operating policy
-lies on the manifold along which no single force can be further satisfied without
-displacing the system beyond the admissibility constraints \(\Adm\) imposed by
-the remaining forces. Cognition, on this account, is the continuous process of
-navigating toward and along that manifold under perturbation.
-\end{definition}
-
-Two features of Definition~\ref{def:cog_veq} deserve emphasis, because they are
-what separates the framework from a restatement of multi-objective optimization.
-First, the equilibrium is a manifold rather than a point: there is in general a
-continuum of admissible operating policies, and which one a system occupies is
-underdetermined by the forces alone. This is a feature, not an indeterminacy to
-be eliminated---it is what allows a cognitive system to shift its operating point
-in response to context without a change of objective. Second, the forces are not
-combined into a scalar by a fixed weighting. The relative influence of each force
-is itself state-dependent: metabolic depletion raises the effective weight of
-\(\Drag\), threat raises that of \(\Prot\), and a benign environment with slack
-resources raises that of \(\Epull\). A system whose force weights were fixed in
-advance would not be at Variational Equilibrium; it would be optimizing a
-particular scalarization of it.
-
-\subsection{Relation to Predictive Processing and Active Inference}
+\subsection{Predictive processing and active inference}
 \label{subsec:pp_ai}
+Predictive processing emphasizes hierarchical predictions and the updating of beliefs through prediction errors \citep{clark2013whatever}. Active inference provides a generative-model account of perception and action, including epistemic and pragmatic contributions to policy evaluation \citep{friston2010fep,parr2018generalised,parr2022active}. Combining these contributions in one functional does not make them indistinguishable or imply that their behavioural balance must be fixed. That balance depends on beliefs, preferences, policies, and the model's treatment of the environment and internal states.
 
-Predictive processing holds that the brain is fundamentally a hierarchical
-prediction machine, continuously matching sensory input against top-down
-expectation and propagating the residual error
-\citep{clark2013whatever}. Active inference extends this into a theory of action:
-an agent acts so as to bring about the observations its generative model
-predicts, so that perception and action become two routes to the same end
-\citep{friston2010fep,parr2022active,buckley2017fep,bruineberg2016anticipating}. The programme is the
-closest existing kin of \uvif{}, and the resemblance is not superficial---both
-are variational, both treat uncertainty reduction as constitutive rather than
-instrumental, and both deny any clean separation between inference and action.
+\uvif{} makes a different organizational choice by assigning named update components to regulatory demands. This may facilitate intervention and reporting, but it is not yet a derivation of a distinct class of behaviour. In particular, a resource-induced change in exploration is not by itself evidence against active inference: an active-inference model that represents resource state may also predict it. A valid comparison must identify which variables and mechanisms each fitted model includes.
 
-The difference lies in what is held fixed. Active inference derives behaviour
-from the minimization of a single functional, expected free energy, within which
-epistemic value (information gain) and pragmatic value (goal attainment) appear
-as additive components. That unification is the framework's principal elegance,
-and it is also, we argue, where it purchases parsimony at the cost of resolution.
-Because the two contributions enter as terms in one quantity, the trade-off
-between them is fixed by the form of the generative model and the precision
-assigned to its priors. Whether an agent explores or exploits is thus a
-consequence of how the model was specified, and an observed shift in that balance
-must be explained by positing a corresponding shift in precision.
+Likewise, a common active-inference formulation may omit a detailed account of inference expenditure without that omission being an impossibility of the framework. The pertinent comparison is between specified models with and without explicit computational and reserve accounting. Claims about entire theoretical families would exceed what the present framework establishes.
 
-\uvif{} makes the opposite modelling choice. \(\Epull\) and \(\Eff\) are
-separate forces whose relative influence is a state variable of the system rather
-than a parameter of its model. The balance between them is an outcome of the
-dynamics, not an input to them. This is a more permissive framework and
-correspondingly a weaker one: it predicts less about any particular agent than
-active inference does, and in exchange it does not require that every observed
-change in exploratory behaviour be absorbed into the precision term. We take
-this to be an honest trade rather than a strict improvement, and we return to
-what would discriminate the two in Section~\ref{subsec:cog_predictions}.
-
-The second and more consequential difference concerns cost. In the free-energy
-formulation, the computational expense of inference is not itself represented in
-the quantity being minimized; the agent minimizes free energy without the price
-of that minimization appearing in the objective. For a theory of an organ that
-consumes a fifth of the body's energy budget at rest, this omission is not
-innocuous. \uvif{} promotes \(\Drag\) and \(\Sus\) to first-class forces
-precisely so that the cost of thinking, and the long-run feasibility of
-continuing to think, constrain the system's operating point directly. This is
-the point at which the framework makes contact with resource-rational analysis.
-
-\subsection{Relation to Resource-Rational Analysis}
+\subsection{Resource-rational analysis}
 \label{subsec:resource_rational}
+Resource-rational analysis explains cognitive strategies in terms of expected benefits relative to computational costs \citep{lieder2019resourcerational,griffiths2015rational}. Human planning studies provide examples of how such models can be tested \citep{callaway2022rational}. This literature directly anticipates the interaction between action efficiency and computational drag.
 
-Resource-rational analysis holds that human cognition is well described as the
-optimal use of limited computational resources: the mind selects the cognitive
-strategy that maximizes expected utility net of the cost of executing it
-\citep{lieder2019resourcerational}. The programme has been notably successful in
-turning apparent irrationality into evidence of rational adaptation---anchoring
-effects, limited planning depth, and heuristic choice have each been recovered
-as the resource-optimal policy for an agent with the constraints humans actually
-have \citep{griffiths2015rational,callaway2022rational}.
+The proposed sustainability component asks whether the resource state carried between decisions changes the preferred computation policy. A per-task model that omits those dynamics may fail, but an extended resource-rational model can represent them. Irreversible outcomes can similarly be represented through absorbing states, constraints, or preferences. UVIF's possible contribution is a convenient decomposition and independently measurable mechanisms, not the exclusive ability to represent these considerations.
 
-Resource-rational analysis is, in the terms of this paper, an account of the
-balance between \(\Eff\) and \(\Drag\), conducted with unusual rigour. Its
-relation to \uvif{} is therefore complementary rather than competitive: it
-supplies the formal machinery for two of the five forces, and the framework
-supplies the context in which those two sit alongside three others.
-
-What the framework adds is the observation that resource-rationality is defined
-relative to a utility function whose specification is exogenous to the analysis,
-and over a horizon that is typically the duration of the task. Both restrictions
-matter. A strategy that is resource-optimal for the task at hand may be
-unsustainable if adopted as a standing policy---the relevant failure is not
-irrationality within the episode but the depletion of a resource the analysis
-did not track. \(\Sus\) is the force that represents this, and it has no natural
-home in a per-task resource-rational analysis. Similarly, \(\Prot\) captures the
-asymmetry between recoverable and unrecoverable errors, which a utility function
-can encode only by assigning a large negative value to the latter---a
-representation that is formally adequate but obscures the qualitative difference
-between an error that costs utility and one that ends the system's capacity to
-accrue it.
-
-\subsection{Relation to Homeostatic and Allostatic Regulation}
+\subsection{Allostasis and cognitive architectures}
 \label{subsec:allostasis}
+Allostasis concerns predictive physiological regulation \citep{schulkin2019allostasis}. Evidence for a large-scale brain system supporting allostasis and interoception motivates examining cognition and bodily regulation together \citep{kleckner2017evidence}. It does not establish a one-to-one mapping between a neural network and the five proposed forces. Such a mapping would require independent measurements and interventions.
 
-The physiological literature supplies the framework's most direct empirical
-anchor. Homeostasis describes the maintenance of critical internal variables
-within viable bounds \citep{billman2020homeostasis}; adaptive homeostasis adds
-that the bounds themselves shift in response to signals \citep{davies2016adaptive};
-and homeodynamics recognizes that living systems exhibit organized transitions
-between stable regimes rather than residence at a single set point
-\citep{lloyd2001homeodynamics,petitjean2025homeodynamics,farnsworth2025setpoint}.
-
-Allostasis carries this into cognition proper. On the allostatic account, the
-brain does not merely correct deviations after they occur; it predicts the
-demands the body is about to face and mobilizes resources in advance, accepting
-the computational cost of prediction in exchange for a reduction in costly
-regulatory error \citep{schulkin2019allostasis}. Neuroimaging evidence supports a
-large-scale intrinsic brain system serving allostasis and interoception, linking
-predictive regulation of the body to the same cortical machinery implicated in
-predictive processing of the world \citep{kleckner2017evidence}.
-
-This is, we suggest, Variational Equilibrium observed in a single system with all
-five forces visible at once. Prediction of upcoming demand is \(\Epull\);
-defence of viable physiological bounds is \(\Prot\); the acknowledged cost of
-predictive computation is \(\Drag\); mobilization ahead of demand is \(\Eff\);
-and the requirement that the regulatory strategy remain affordable across the
-organism's lifespan is \(\Sus\). The allostatic literature has, in effect,
-already described the framework's central object in one domain. What \uvif{}
-proposes is that the same organizational form recurs at other scales, and the
-force of that proposal rests on whether the recurrence is substantive or merely
-analogical---a question we address directly in
-Section~\ref{sec:limitations}.
-
-\subsection{Implications for Cognitive Architectures}
 \label{subsec:architectures}
+Integrated cognitive architectures describe mechanisms for memory, learning, control, and action \citep{laird2017standard,kotseruba201840}. \uvif{} is a proposed regulatory description that could be implemented within such architectures. It does not specify a complete cognitive architecture. A concrete implementation must explain how component signals are computed, how competing updates are resolved, and how the computation used by the regulatory layer itself is charged to the resource budget.
 
-Integrated cognitive architectures---ACT-R, Soar, Sigma, and the several dozen
-others that remain in active development---represent the field's most sustained
-attempt to specify a complete cognitive system rather than an isolated mechanism
-\citep{kotseruba201840}. The standard model of the mind articulates the
-consensus these architectures have converged upon regarding structure,
-processing, memory, and learning \citep{laird2017standard}.
-
-That consensus is, however, largely a consensus about \emph{mechanism}: what
-modules exist, what representations they exchange, how control passes among
-them. It says comparatively little about what governs the allocation of a
-system's finite capacity among competing demands at run time, which is
-ordinarily handled by architecture-specific conflict resolution or utility
-mechanisms. \uvif{} is not a competing architecture and does not propose one.
-It is a specification of the regulatory layer such an architecture requires:
-a statement of which pressures must be represented and balanced, leaving open
-the mechanisms by which any particular architecture implements them.
-
-Three design consequences follow. First, an architecture that represents the
-cost of its own inference---not merely as a scheduling constraint but as a
-quantity entering its control decisions---will exhibit the graceful degradation
-under load that fixed-policy architectures lack. Second, an architecture with an
-explicit \(\Prot\) force will distinguish recoverable from unrecoverable
-failure, and will decline actions of the latter kind under uncertainty rather
-than treating all errors as commensurable losses. Third, an architecture
-carrying an explicit \(\Sus\) force will admit policies that are locally
-suboptimal in order to remain feasible over its deployment lifetime---a property
-that no per-episode objective can express. These are design implications, not
-results; the framework as it stands motivates them but does not demonstrate
-them.
-
-\subsection{Discriminating Predictions}
+\subsection{Comparative hypotheses}
 \label{subsec:cog_predictions}
+The following hypotheses concern specified implementations rather than unique predictions of UVIF as a whole. Their value lies in enabling controlled comparisons and revealing when the additional decomposition is unnecessary.
 
-A framework that merely reorganizes existing findings has limited value. We
-therefore state, as hypotheses rather than established results, the predictions
-by which \uvif{} could be separated from the accounts discussed above.
+\begin{enumerate}[label=(H\arabic*),leftmargin=2.4em]
+\item \textbf{Resource-dependent allocation.} Manipulating available computation, time, or reserve state while preserving external task information and rewards should alter information acquisition when the specified model couples allocation to those resources. Compare a resource-responsive UVIF model with both fixed-weight and resource-responsive alternatives. Measure sampling decisions, response time, task performance, and resource expenditure. A failure to improve held-out prediction over equally flexible alternatives would weaken the case for the proposed decomposition.
 
-\begin{enumerate}[label=(H\arabic*),leftmargin=2.2em]
-  \item \textbf{State-dependent force weighting.} If the balance between
-    epistemic and pragmatic drives is a state variable rather than a model
-    parameter, then manipulating a subject's resource state---metabolic,
-    temporal, or computational---while holding the task's information structure
-    and reward structure fixed should shift exploratory behaviour. An expected
-    free energy account can accommodate such a shift only by positing a
-    concurrent change in precision, so the discriminating test is whether the
-    shift occurs without independent evidence of a precision change.
+\item \textbf{Effects of resource carry-over.} When expenditure reduces capacity in later episodes, a model that tracks reserves should predict different allocation from an otherwise comparable model that resets resources after each episode. Match the observed task and state information across agents, and compare with a long-horizon resource-rational or constrained-control model. The prediction concerns explicit carry-over dynamics, not an assumed distinction between a sustainability force and all possible long-horizon utilities.
 
-  \item \textbf{Sustainability effects beyond the episode.} If \(\Sus\) is a
-    genuine force rather than a long-horizon utility term, then agents informed
-    that a task regime will be sustained indefinitely should adopt systematically
-    different---and locally suboptimal---strategies from agents facing an
-    otherwise identical single episode, even when the stated payoff structure is
-    held constant.
+\item \textbf{Protection under irreversible outcomes.} Compare a hard admissibility mechanism with calibrated soft penalties under the same transition model, including irreversible states. Measure violation frequency, retained task performance, and unnecessary refusal. Hard and soft formulations may coincide over a bounded range of payoffs; the experiment must report that range. No behavioural observation here establishes impossibility of representation by every utility model.
 
-  \item \textbf{Asymmetric treatment of irreversibility.} If \(\Prot\)
-    enters as an admissibility constraint---a ceiling on tolerated exposure
-    to unrecoverable outcomes---rather than as a term in the objective, then
-    choices involving such outcomes should not be reproducible by any
-    monotone rescaling of the utilities attached to recoverable ones with a
-    \emph{finite} coefficient. We state the prediction in this restricted
-    form deliberately. A sufficiently steep penalty approximates a hard
-    constraint arbitrarily well, and converges to it as the coefficient
-    diverges; the unrestricted claim---that no monotone rescaling can
-    reproduce constrained choice---is therefore false as a limit statement.
-    What is testable is the finite case: whether observed choices are fit by
-    a penalty whose estimated coefficient remains bounded as the range of
-    admitted values is widened, or whether that estimate diverges.
-
-  \item \textbf{Characteristic failure signatures.} Selectively suppressing a
-    single force should produce a distinguishable failure mode: suppressing
-    \(\Epull\) should yield confident action on a stale world model;
-    suppressing \(\Prot\) should yield fluent behaviour punctuated by
-    catastrophic error; suppressing \(\Sus\) should yield performance that is
-    strong initially and degrades monotonically with deployment duration.
+\item \textbf{Component ablation.} Remove one implemented component while preserving observations and evaluating both fixed-parameter and retuned controls. Predefine the expected consequence: reduced learning under epistemic ablation, greater damage under protection ablation, or reserve depletion under sustainability ablation. Effects need not be monotonic or unique, because other components may compensate. An ablation is informative only when it tests an independently meaningful mechanism rather than a failure built into the outcome definition.
 \end{enumerate}
 
-These predictions are qualitative, and the framework does not yet specify the
-functional forms that would make them quantitative. Establishing those forms is
-the principal item on the research agenda set out in
-Section~\ref{sec:future}.
-
-A reference implementation of the five forces, together with a simulation of the
-four predictions stated above, is openly available in the repository
-accompanying this article \citep{Hamam2026GitHub}. Each force is instantiated as
-an explicit function of a policy and an environment state, and each prediction is
-evaluated against a comparator drawn from the accounts discussed in this
-section---a fixed-weight scalarization for (H1), a per-episode objective for
-(H2), a monotone utility penalty for (H3), and the intact force set for (H4).
-Comparator parameters are fitted on calibration environments disjoint from those
-on which results are reported, and comparator search ranges are widened until the
-fit ceases to improve, so that no reported difference rests on having given the
-alternative too little room. Within that model, (H1), (H2) and (H4) hold and are
-robust to perturbation of every model constant, while (H3) holds only in the
-restricted finite-coefficient form stated above: the fitted penalty coefficient
-grows without bound as the search range widens, which is the signature of a
-penalty approximating a constraint rather than reproducing it.
-
-These are results about a model whose functional forms are stipulated rather than
-measured. They establish that each prediction is well posed, that the signature
-it names is measurable, and that the framework generates that signature where a
-natural comparator does not. They are not evidence about the behaviour of
-biological or artificial cognitive systems, and they do not stand in for the
-empirical tests described in Section~\ref{sec:limitations}.
-
-A companion study takes up a narrower empirical
-question within this programme---what happens when the decision threshold of a
-deployed classification system is set without regard to the review capacity that
-must absorb its borderline cases---and reports an analysis of confidence-based
-human review under fixed operating conditions \citep{hamam2026thresholds}. That
-study is empirical and institution-facing; the present paper is the conceptual
-framework from which its question is drawn. Neither depends on the other for its
-claims.
+Section~\ref{sec:future} specifies common evaluation requirements. This paper does not report tests of H1--H4 or claim that they distinguish UVIF from every member of the comparator families. The companion repository provides an executed notebook and saved outputs for illustrative policy-grid comparisons \citep{Hamam2026GitHub}. Its implementation maximizes a scalar score formed from the five named contributions, rather than integrating Eq.~\eqref{eq:projected}. Its fixed-reference H1 comparator also freezes the environment arguments of the component functions; this tests state responsiveness, not an impossibility of fixed-weight scalar optimization. The H3 search examines a particular power-penalty family over bounded grids, which cannot establish non-equivalence to every finite monotone penalty. These demonstrations motivate revised comparisons but are not presented here as validation of H1--H4 or of the vector-field model.

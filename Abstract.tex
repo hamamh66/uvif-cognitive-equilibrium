@@ -1,75 +1,11 @@
-\documentclass[review, authoryear, times, 10pt]{elsarticle}
-
-%\documentclass[twocolumn,3p,times,procedia]{elsarticle}
-%% The `ecrc' package must be called to make the CRC functionality available
-
-\usepackage{graphicx}
-\usepackage{balance}
-\usepackage{array,threeparttable}
-\usepackage{url}
-\usepackage{float}
-\usepackage[section]{placeins}
-\usepackage{multirow}
-%\usepackage{soul}   % removed: unused, and not part of a base TeX install
-\usepackage{amssymb}
-\usepackage{amsmath}
-\usepackage{multicol}
-\usepackage{algorithm}        % provides the floating 'algorithm' environment
-\let\algorithmic\relax        % <— neutralize any pre-defined \algorithmic
-\usepackage{algpseudocode}    % provides \begin{algorithmic} ... \end{algorithmic}
-\usepackage{enumitem}
-\usepackage{booktabs}
-\usepackage{tabularx}
-%\usepackage[ruled,vlined]{algorithm2e}
-\usepackage{caption}
-\usepackage{subcaption} 
-\usepackage{pdflscape}
-
-
-
-
-% ---- Custom commands ----
-\newcommand{\uvif}{\textsc{UVIF}}
-\newcommand{\VEq}{\mathcal{VEq}}
-\newcommand{\Epull}{\mathcal{E}_{\mathrm{pull}}}
-\newcommand{\Drag}{\mathcal{D}_{\mathrm{drag}}}
-\newcommand{\Prot}{\mathcal{P}_{\mathrm{prot}}}
-\newcommand{\Eff}{\mathcal{A}_{\mathrm{eff}}}
-\newcommand{\Sus}{\mathcal{S}_{\mathrm{sus}}}
-\newcommand{\Adm}{\mathcal{C}_{\mathrm{adm}}}
-
-\usepackage{geometry}
-%\geometry{left=1.25cm,right=1.15cm,top=1.9cm,bottom=1.9cm,foot=1.05cm}
-%\setlength\columnsep{0.6cm}
-
-
+\documentclass[review,12pt]{elsarticle}
+\input{preamble}
 \begin{document}
 \begin{frontmatter}
-
-
-\title{UVIF: A Nature-Aligned Framework for Intelligence,\\[0.4em]
-  Stability, and Long-Term Adaptation\\
-  Toward Variational Equilibrium as a Universal Principle\\[0.2em]
-  of Persistent Intelligent Organization}
-
+\input{title}
 \begin{abstract}
-Modern artificial intelligence systems are predominantly built around the maximization of scalar objectives. While powerful in narrow settings, this paradigm fosters brittleness, resource exhaustion, and alignment failure over time---properties that contrast sharply with the robustness and longevity of natural systems. This paper introduces the \textbf{Unified Variational Intelligence Framework (\uvif{})}, a nature-aligned theoretical architecture that reconceptualizes intelligence not as optimization toward a fixed target, but as the continuous, constrained balancing of competing forces: an \emph{epistemic pull} driving understanding, a \emph{protective shield} preserving critical internal states, a \emph{computational
-    drag} enforcing resource realism, an \emph{efficiency imperative}
-    governing action, and a \emph{sustainability field} ensuring long-term
-    viability. The organizing principle is \emph{Variational Equilibrium}
-    (\(\VEq\))---a dynamic, adaptive steady state that neither freezes a
-    system into rigidity nor dissolves it into chaos, but sustains
-    purposeful coherence through time. Grounded in variational principles
-    from physics, biology, and ecology, \uvif{} provides a unifying
-    conceptual lens for biological homeostasis, ecological resilience,
-    human cognition, artificial intelligence, and organizational
-    management. We articulate the framework's philosophical foundations,
-    its formal structure, its comparative advantages over optimization-,
-    reinforcement-learning-, and free-energy-based paradigms, and its
-    implications for next-generation intelligent systems that must remain
-    safe, adaptive, and sustainable across decades of deployment.
+\input{abstract_content}
 \end{abstract}
+\input{keywords}
 \end{frontmatter}
-
-
 \end{document}
